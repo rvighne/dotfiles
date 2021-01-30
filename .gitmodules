@@ -1,0 +1,32 @@
+[submodule ".vim/pack/plugins/start/one"]
+	path = .vim/pack/plugins/start/one
+	url = https://github.com/rakr/vim-one.git
+	branch = master
+[submodule ".vim/pack/plugins/start/airline"]
+	path = .vim/pack/plugins/start/airline
+	url = https://github.com/vim-airline/vim-airline.git
+	branch = master
+[submodule ".vim/pack/plugins/start/fugitive"]
+	path = .vim/pack/plugins/start/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+	branch = master
+[submodule ".vim/pack/plugins/start/surround"]
+	path = .vim/pack/plugins/start/surround
+	url = https://github.com/tpope/vim-surround.git
+	branch = master
+[submodule ".vim/pack/plugins/start/commentary"]
+	path = .vim/pack/plugins/start/commentary
+	url = https://github.com/tpope/vim-commentary.git
+	branch = master
+[submodule ".vim/pack/plugins/start/repeat"]
+	path = .vim/pack/plugins/start/repeat
+	url = https://github.com/tpope/vim-repeat.git
+	branch = master
+[submodule ".vim/pack/plugins/start/rsi"]
+	path = .vim/pack/plugins/start/rsi
+	url = https://github.com/tpope/vim-rsi.git
+	branch = master
+[submodule ".vim/pack/plugins/start/vinegar"]
+	path = .vim/pack/plugins/start/vinegar
+	url = https://github.com/tpope/vim-vinegar.git
+	branch = master
