@@ -1,0 +1,8 @@
+set blink-matching-paren
+set colored-completion-prefix
+set colored-stats
+set completion-ignore-case
+set completion-map-case
+set enable-bracketed-paste
+set show-all-if-ambiguous
+set skip-completed-text
