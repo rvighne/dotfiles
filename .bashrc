@@ -13,7 +13,8 @@ case $0 in *bash)
 	shopt -s autocd
 	shopt -s extglob globstar
 	shopt -s histappend
-	shopt -s completion_strip_exe no_empty_cmd_completion
+	shopt -s no_empty_cmd_completion
+	shopt -s completion_strip_exe 2>/dev/null
 	HISTCONTROL=ignoreboth:erasedups
 esac
 
@@ -27,9 +28,7 @@ if ls --help | grep -qF -- --color
 fi
 
 # Hide registry hive files on Windows
-case $OSTYPE in
-	msys|cygwin) LS_CMD="$LS_CMD -I NTUSER.DAT\\*"
-esac
+[ -f ~/NTUSER.DAT ] && LS_CMD="$LS_CMD -I NTUSER.DAT\\*"
 
 # Common ls shortcuts
 alias ls="$LS_CMD"
