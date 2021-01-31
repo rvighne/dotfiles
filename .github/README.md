@@ -15,6 +15,7 @@ To install (note that the checkout will conflict with any existing dotfiles):
 	git clone --bare https://github.com/rvighne/dotfiles.git ~/.cfg.git
 	git --git-dir ~/.cfg.git --work-tree ~ checkout
 
-Then, I highly recommended hiding the untracked files (i.e. most of your home directory):
+Then, I highly recommended hiding untracked files (i.e. most of your home directory), and fetching the Vim plugins:
 
 	cfg config --local status.showUntrackedFiles no
+	cfg submodule update --init --recursive
