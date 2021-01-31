@@ -22,7 +22,7 @@ esac
 LS_CMD='ls -hF'
 
 # Terminal colors on both GNU and BSD
-if ls --help | grep -qF -- --color
+if ls --help 2>/dev/null | grep -qF -- --color
 	then LS_CMD="$LS_CMD --color=auto"
 	else LS_CMD="$LS_CMD -G"
 fi
