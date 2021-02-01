@@ -42,6 +42,9 @@ cd() { command cd "$@" && ls; }
 # Colors for grep; works on both GNU and BSD
 alias grep='grep --color'
 
+# Avoid vi-compatible mode
+alias view='vim -M'
+
 # Useful on remote systems
 alias pt='pstree $(id -un)'
 
