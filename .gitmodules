@@ -26,7 +26,3 @@
 	path = .vim/pack/plugins/start/rsi
 	url = https://github.com/tpope/vim-rsi.git
 	branch = master
-[submodule ".vim/pack/plugins/start/vinegar"]
-	path = .vim/pack/plugins/start/vinegar
-	url = https://github.com/tpope/vim-vinegar.git
-	branch = master
