@@ -47,7 +47,7 @@ tnoremap ; :
 
 " Speedy buffer switching
 noremap <CR> :buf<SPACE>
-noremap <SPACE> :b#<CR>
+noremap <SPACE> <C-^>
 
 " Speedy window navigation
 noremap <C-h> <C-w>h
@@ -57,6 +57,10 @@ noremap <C-l> <C-w>l
 
 " Use LaTeX distro to print as PDF
 command Pdf hardcopy >%.ps | !ps2pdf %.ps<CR>
+
+" Don't need vinegar.vim for this :)
+" Also helps to use :Explore rather than :e
+let g:netrw_banner = 0
 
 " Colorscheme to match terminal (One Half Dark)
 let g:one_allow_italics = 1
