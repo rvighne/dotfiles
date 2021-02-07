@@ -4,6 +4,9 @@ source $VIMRUNTIME/defaults.vim
 " Overrides for Git for Windows
 set wildmode&
 
+" Better mouse support
+set ttymouse=sgr mouse=a
+
 " Requires a true-color theme
 set termguicolors
 
@@ -26,7 +29,7 @@ set ignorecase smartcase hlsearch
 set splitbelow splitright
 set number cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
-set foldmethod=syntax
+set foldmethod=syntax nofoldenable
 set clipboard=unnamed
 set printoptions=formfeed:y
 
