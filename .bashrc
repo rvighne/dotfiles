@@ -55,6 +55,13 @@ alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && cd -- "$1"; }
 
+# Make TUI programs work on Windows
+if command -v winpty >/dev/null
+then
+	alias stack='winpty stack'
+	alias latexmk='winpty latexmk'
+fi
+
 # Docker Compose is too verbose
 if command -v docker-compose >/dev/null
 then
