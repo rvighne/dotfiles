@@ -66,20 +66,28 @@ then
 	enter() { docker-compose exec "$1" bash; }
 fi
 
-# Colored prompt with
-#   - preceding newline
-#   - error code or signal name
-#   - current directory
-#   - git status (git-prompt.sh must be sourced)
-PS1="\n\[$(tput setaf 1)\]\$(cmd_status)\[$(tput setaf 2)\]\w\[$(tput setaf 6)\]\$(__git_ps1)\[$(tput sgr0)\] "
+# Git completions and prompt helper on FreeBSD
+GIT_CONTRIB=/usr/local/share/git-core/contrib
+if [ -d $GIT_CONTRIB ]
+then
+	. $GIT_CONTRIB/completion/git-completion.bash
+	. $GIT_CONTRIB/completion/git-prompt.sh
+fi
 
-# Set terminal title to basename of working directory
-# Not using tput because tsl/fsl is often missing from terminfo
-case $TERM in
-	xterm*) PS1="\[\e];\W\a\]$PS1"
-esac
+# Blank line for separation
+PS1="\n"
+# Set title to basename of current directory
+PS1="$PS1\[\e];\W\a\]"
+# Error code or signal name in red
+PS1="$PS1\[\e[31m\]\$(cmd_status)"
+# Current directory in green
+PS1="$PS1\[\e[32m\]\w"
+# Git status (git-prompt.sh must be sourced) in cyan
+PS1="$PS1\[\e[36m\]\$(__git_ps1)"
+# Space before command in default style
+PS1="$PS1\[\e[0m\] "
 
-# Helper function for PS1
+# Helper function for prompt
 cmd_status() {
 	local st=$?
 	if [ $st -gt 128 ]
