@@ -58,6 +58,9 @@ noremap <C-l> <C-w>l
 " Use LaTeX distro to print as PDF
 command Pdf hardcopy >%.ps | !ps2pdf %.ps<CR>
 
+" GHCi config file is just executable Haskell
+autocmd BufNewFile,BufRead .ghci set filetype=haskell
+
 " Don't need vinegar.vim for this :)
 " Also helps to use :Explore rather than :e
 let g:netrw_banner = 0
