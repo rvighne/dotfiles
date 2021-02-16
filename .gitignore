@@ -1,0 +1,12 @@
+# Crypto
+.gnupg
+.ssh
+
+# Databases
+.vim/spell
+.viminfo
+
+# Readline
+*history
+*hist
+*hst
