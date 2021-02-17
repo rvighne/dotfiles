@@ -1,0 +1,21 @@
+[column]
+	ui = auto
+[status]
+	showStash = yes
+[stash]
+	showPatch = yes
+[grep]
+	lineNumber = yes
+	extendedRegexp = yes
+[pull]
+	ff = only
+[rebase]
+	missingCommitsCheck = error
+[interactive]
+	singleKey = yes
+[diff]
+	colorMoved = yes
+	colorMovedWS = allow-indentation-change
+[merge]
+	conflictStyle = diff3
+	tool = vimdiff
