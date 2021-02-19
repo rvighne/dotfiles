@@ -30,7 +30,3 @@
 	path = .vim/pack/plugins/start/ale
 	url = https://github.com/dense-analysis/ale.git
 	branch = master
-[submodule ".vim/pack/plugins/start/vimtex"]
-	path = .vim/pack/plugins/start/vimtex
-	url = https://github.com/lervag/vimtex.git
-	branch = master
