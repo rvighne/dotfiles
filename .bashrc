@@ -96,9 +96,10 @@ PS1="$PS1\[\e[0m\] "
 
 # Helper function for prompt
 cmd_status() {
-	local st=$?
-	if [ $st -gt 128 ]
-		then printf '%s ' $(kill -l $st)
+	local st=$? sig
+	if [ $st -gt 128 ] && sig=$(kill -l $st 2>/dev/null)
+	then
+		printf '%s ' "$sig"
 	elif [ $st -ne 0 ]
 		then printf '%d ' $st
 	fi
