@@ -4,21 +4,6 @@ source $VIMRUNTIME/defaults.vim
 " Overrides for Git for Windows
 set wildmode&
 
-" Better mouse support
-set ttymouse=sgr mouse=a
-
-" Requires a true-color theme
-set termguicolors
-
-" Background detection fails in Windows Terminal
-set background=dark
-
-" More GUI-like behavior
-set title belloff=all lazyredraw
-
-" Continuous pane boundary
-set fillchars+=vert:│
-
 " Main options
 set hidden autowrite
 set showmatch
@@ -32,6 +17,22 @@ set linebreak breakindent showbreak=↳\ \ \ "
 set foldmethod=syntax nofoldenable
 set clipboard=unnamed
 set printoptions=formfeed:y
+
+" True-color scheme that matches terminal (One Half Dark)
+set termguicolors
+colorscheme one
+
+" Background detection fails in Windows Terminal
+set background=dark
+
+" Better mouse support
+set ttymouse=sgr mouse=a
+
+" More GUI-like behavior
+set title belloff=all lazyredraw
+
+" Continuous pane boundary
+set fillchars+=vert:│
 
 " Mode-dependent cursor shape
 set t_SI=[5\ q
