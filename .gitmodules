@@ -30,3 +30,7 @@
 	path = .vim/pack/plugins/start/ale
 	url = https://github.com/dense-analysis/ale.git
 	branch = master
+[submodule ".vim/pack/plugins/start/gitgutter"]
+	path = .vim/pack/plugins/start/gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+	branch = master
