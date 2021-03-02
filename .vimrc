@@ -31,6 +31,9 @@ set ttymouse=sgr mouse=a
 " More GUI-like behavior
 set title belloff=all lazyredraw
 
+" Improve responsiveness and disable swap files (DANGEROUS)
+set updatetime=100 noswapfile
+
 " Continuous pane boundary
 set fillchars+=vert:│
 
@@ -50,14 +53,7 @@ noremap ; :
 tnoremap ; :
 
 " Speedy buffer switching
-noremap <CR> :buf<SPACE>
 noremap <SPACE> <C-^>
-
-" Speedy window navigation
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
