@@ -34,3 +34,7 @@
 	path = .vim/pack/plugins/start/gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
 	branch = master
+[submodule ".vim/pack/plugins/start/fzf"]
+	path = .vim/pack/plugins/start/fzf
+	url = https://github.com/junegunn/fzf.git
+	branch = master
