@@ -14,7 +14,6 @@ set ignorecase smartcase hlsearch
 set splitbelow splitright
 set number cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
-set foldmethod=syntax nofoldenable
 set clipboard=unnamed
 set printoptions=formfeed:y
 
@@ -54,6 +53,7 @@ tnoremap ; :
 
 " Speedy buffer switching
 noremap <SPACE> <C-^>
+noremap <silent> : :<C-u>FZF<CR>
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
