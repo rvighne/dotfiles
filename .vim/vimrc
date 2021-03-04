@@ -51,19 +51,22 @@ nnoremap Y y$
 noremap ; :
 tnoremap ; :
 
+" Quick hide search result highlighting
+nnoremap <silent> <BS> :<C-u>noh<CR>
+
 " Speedy buffer switching
-noremap <SPACE> <C-^>
-noremap <silent> : :<C-u>FZF<CR>
+nnoremap <SPACE> <C-^>
+nnoremap <silent> <C-p> :<C-u>FZF<CR>
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
 
 " IDE actions
 nnoremap <silent> <F12> :terminal<CR>
-nnoremap <silent> <F2> :ALERename<CR>
+nnoremap <silent> <F2> :<C-u>ALERename<CR>
 nnoremap <silent> + :ALECodeAction<CR>
-nnoremap <silent> gd :ALEGoToDefinition<CR>
-nnoremap <silent> gD :ALEGoToTypeDefinition<CR>
+nnoremap <silent> gd :<C-u>ALEGoToDefinition<CR>
+nnoremap <silent> gD :<C-u>ALEGoToTypeDefinition<CR>
 
 " GHCi config file is just executable Haskell
 autocmd BufNewFile,BufRead .ghci set filetype=haskell
