@@ -59,6 +59,7 @@ mkcd() { mkdir -p -- "$@" && cd -- "$1"; }
 # Make TUI programs work on Windows
 if command -v winpty >/dev/null
 then
+	alias pp='pipenv run winpty python'
 	alias stack='winpty stack'
 	alias latexmk='winpty latexmk'
 fi
