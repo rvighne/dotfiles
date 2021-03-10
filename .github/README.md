@@ -19,4 +19,4 @@ Then, I highly recommended hiding untracked files (i.e. most of your home direct
 
 	cfg config status.showUntrackedFiles no
 	cfg config diff.ignoreSubmodules all
-	cfg submodule update --init --remote --recursive
+	cfg-plug

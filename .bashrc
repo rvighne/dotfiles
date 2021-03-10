@@ -51,6 +51,7 @@ alias pt='pstree $(id -un)'
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
 alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
+alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1'
 
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && cd -- "$1"; }
