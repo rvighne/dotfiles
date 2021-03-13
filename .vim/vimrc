@@ -2,7 +2,7 @@
 source $VIMRUNTIME/defaults.vim
 
 " Overrides for Git for Windows
-set wildmode&
+set wildmode& laststatus& statusline&
 
 " Main options
 set hidden autowrite
@@ -19,6 +19,7 @@ set printoptions=formfeed:y
 
 " True-color scheme that matches terminal (One Half Dark)
 set termguicolors
+let g:one_allow_italics = 1
 colorscheme one
 
 " Background detection fails in Windows Terminal
@@ -56,7 +57,7 @@ nnoremap <silent> <BS> :<C-u>noh<CR>
 
 " Speedy buffer switching
 nnoremap <SPACE> <C-^>
-nnoremap <silent> <C-p> :<C-u>FZF<CR>
+nnoremap <silent> <C-p> :<C-u>Files<CR>
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
