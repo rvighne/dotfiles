@@ -11,11 +11,12 @@ esac
 # Interactive-friendly settings; see also .inputrc
 case $0 in *bash)
 	shopt -s autocd
-	shopt -s extglob globstar
+	shopt -s globstar
 	shopt -s histappend
 	shopt -s no_empty_cmd_completion
 	shopt -s completion_strip_exe 2>/dev/null
 	HISTCONTROL=ignoreboth:erasedups
+	HISTSIZE=10000
 esac
 
 # Type indicators and human-readable sizes in ls
