@@ -38,11 +38,7 @@ set updatetime=100 noswapfile
 set fillchars+=vert:│
 
 " Mode-dependent cursor shape
-set t_SI=[5\ q
-set t_SR=[3\ q
-set t_EI=[1\ q
-
-" Reset cursor to terminal default on exit
+set t_SI=[5\ q t_SR=[3\ q t_EI=[1\ q
 autocmd VimLeave * set t_me=[0\ q
 
 " Why isn't this default
@@ -51,6 +47,9 @@ nnoremap Y y$
 " Shift-less command mode
 noremap ; :
 tnoremap ; :
+
+" Quick save file without messing up timestamp
+nnoremap <silent> , :<C-u>update<CR>
 
 " Quick hide search result highlighting
 nnoremap <silent> <BS> :<C-u>noh<CR>
@@ -61,6 +60,9 @@ nnoremap <silent> <C-p> :<C-u>Files<CR>
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
+
+" Insert ASCII underline for headings
+nnoremap _ yypVr=o<CR>
 
 " IDE actions
 nnoremap <silent> <F12> :terminal<CR>
