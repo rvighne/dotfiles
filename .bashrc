@@ -76,6 +76,9 @@ then
 	enter() { docker-compose exec "$1" bash; }
 fi
 
+# Enable Node Version Manager if installed
+[ -d ~/.nvm ] && . ~/.nvm/nvm.sh && . ~/.nvm/bash_completion
+
 # Git completions and prompt helper on FreeBSD
 GIT_CONTRIB=/usr/local/share/git-core/contrib
 if [ -d $GIT_CONTRIB ]
