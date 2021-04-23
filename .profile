@@ -9,6 +9,9 @@ if command -v vim >/dev/null
 	else export VISUAL=vi
 fi
 
+# Use fancy colors for ls if GNU dircolors is available
+command -v dircolors >/dev/null && eval "$(exec dircolors -b)"
+
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege
 [ "$MSYSTEM" ] && MSYS=winsymlinks:nativestrict:$MSYS
