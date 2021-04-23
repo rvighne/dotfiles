@@ -17,13 +17,11 @@ set linebreak breakindent showbreak=↳\ \ \ "
 set clipboard=unnamed
 set printoptions=formfeed:y
 
-" True-color scheme that matches terminal (One Half Dark)
-set termguicolors
-let g:one_allow_italics = 1
-colorscheme one
-
 " Background detection fails in Windows Terminal
 set background=dark
+
+" Windows Terminal doesn't support undercurl, so fallback to underline
+set t_Cs=
 
 " Better mouse support
 set ttymouse=sgr mouse=a
@@ -84,3 +82,14 @@ let g:netrw_banner = 0
 " ALE language server plugin
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
+
+" True-color scheme that matches terminal (One Half Dark)
+set termguicolors
+let g:one_allow_italics = 1
+colorscheme one
+
+" Without undercurl, color must be set manually (this is orange from One Dark)
+call one#highlight('SpellBad', 'd19a66', '', '')
+call one#highlight('SpellCap', 'd19a66', '', '')
+call one#highlight('SpellLocal', 'd19a66', '', '')
+call one#highlight('SpellRare', 'd19a66', '', '')
