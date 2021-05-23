@@ -43,16 +43,19 @@ cd() { command cd "$@" && ls; }
 # Colors for grep; works on both GNU and BSD
 alias grep='grep --color'
 
+# Atomic make-and-change-to directory
+mkcd() { mkdir -p -- "$@" && cd -- "$1"; }
+
 # Useful on remote systems
 alias pt='pstree $(id -un)'
+
+# Start Jupyter Lab without activating Anaconda
+alias jp='~/.opt/anaconda3/bin/jupyter-lab --no-browser'
 
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
 alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
 alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1'
-
-# Atomic make-and-change-to directory
-mkcd() { mkdir -p -- "$@" && cd -- "$1"; }
 
 # Make TUI programs work on Windows
 if command -v winpty >/dev/null
