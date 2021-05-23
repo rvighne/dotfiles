@@ -14,6 +14,7 @@ set ignorecase smartcase hlsearch
 set splitbelow splitright
 set number cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
+set colorcolumn=+1
 set clipboard=unnamed
 set printoptions=formfeed:y
 
