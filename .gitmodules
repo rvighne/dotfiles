@@ -1,6 +1,6 @@
 [submodule ".vim/pack/plugins/start/one"]
 	path = .vim/pack/plugins/start/one
-	url = https://github.com/rakr/vim-one.git
+	url = https://github.com/rvighne/vim-one.git
 	branch = master
 [submodule ".vim/pack/plugins/start/fugitive"]
 	path = .vim/pack/plugins/start/fugitive
