@@ -11,6 +11,7 @@ esac
 # Interactive-friendly settings; see also .inputrc
 case $0 in *bash)
 	shopt -s autocd
+	shopt -s direxpand
 	shopt -s globstar
 	shopt -s histappend
 	shopt -s no_empty_cmd_completion
@@ -40,17 +41,23 @@ unset LS_CMD
 # Show brief directory listing on directory change
 cd() { command cd "$@" && ls; }
 
+# Bash doesn't recognize - as an argument for autocd
+alias -- -='cd -'
+
 # Colors for grep; works on both GNU and BSD
 alias grep='grep --color'
 
 # Atomic make-and-change-to directory
-mkcd() { mkdir -p -- "$@" && cd -- "$1"; }
+mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 
 # Useful on remote systems
 alias pt='pstree $(id -un)'
 
 # Start Jupyter Lab without activating Anaconda
-alias jp='~/.opt/anaconda3/bin/jupyter-lab --no-browser'
+alias jp='~/.local/opt/anaconda3/bin/jupyter-lab --no-browser'
+
+# Generate secure random passwords
+alias pw='tr -dc [:graph:] </dev/urandom | fold -w12 | head -n'
 
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
