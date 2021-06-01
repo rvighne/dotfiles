@@ -5,12 +5,12 @@ source $VIMRUNTIME/defaults.vim
 set wildmode& laststatus& statusline&
 
 " Main options
-set hidden autowrite
-set showmatch
+set hidden
+set showmatch hlsearch
 set spell complete+=k
 set backspace=indent
 set autoindent shiftwidth=0 tabstop=4
-set ignorecase smartcase hlsearch
+set ignorecase wildignorecase smartcase
 set splitbelow splitright
 set number cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
@@ -55,7 +55,9 @@ nnoremap <silent> <BS> :<C-u>noh<CR>
 
 " Speedy buffer switching
 nnoremap <SPACE> <C-^>
-nnoremap <silent> <C-p> :<C-u>Files<CR>
+
+" FZF in the current project (Git repo if present, otherwise whole directory)
+nnoremap <expr> <silent> <C-p> FugitiveHead() != '' ? ':<C-u>GFiles<CR>' : ':<C-u>Files<CR>'
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
