@@ -12,10 +12,10 @@ esac
 case $0 in *bash)
 	shopt -s autocd
 	shopt -s direxpand
-	shopt -s globstar
+	shopt -s globstar failglob
+	shopt -s checkjobs
 	shopt -s histappend
 	shopt -s no_empty_cmd_completion
-	shopt -s completion_strip_exe 2>/dev/null
 	HISTCONTROL=ignoreboth:erasedups
 	HISTSIZE=10000
 esac
@@ -57,7 +57,7 @@ alias pt='pstree $(id -un)'
 alias jp='~/.local/opt/anaconda3/bin/jupyter-lab --no-browser'
 
 # Generate secure random passwords
-alias pw='tr -dc [:graph:] </dev/urandom | fold -w12 | head -n'
+alias pw='tr -dc \[:graph:] </dev/urandom | fold -w12 | head -n'
 
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean

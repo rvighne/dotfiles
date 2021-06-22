@@ -6,7 +6,6 @@
 	showPatch = yes
 [grep]
 	lineNumber = yes
-	extendedRegexp = yes
 [pull]
 	ff = only
 [rebase]
