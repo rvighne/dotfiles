@@ -15,3 +15,17 @@ command -v dircolors >/dev/null && eval "$(exec dircolors -b)"
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege
 [ "$MSYSTEM" ] && MSYS=winsymlinks:nativestrict:$MSYS
+
+# Ensure that SSH agent is started and accessible
+env=~/.ssh/agent.env
+no_agent() {
+	ssh-add -l >/dev/null 2>&1
+	[ $? == 2 ]
+}
+
+if no_agent; then
+	[ -r "$env" ] && . "$env" >/dev/null
+	no_agent && (umask 066; exec ssh-agent -s >"$env") && . "$env" >/dev/null
+fi
+
+unset env no_agent
