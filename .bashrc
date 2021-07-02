@@ -24,7 +24,7 @@ esac
 LS_CMD='ls -hF'
 
 # Terminal colors on both GNU and BSD
-if ls --help 2>/dev/null | grep -qF -- --color
+if ls --help 2>/dev/null | grep -q -- --color
 	then LS_CMD="$LS_CMD --color=auto"
 	else LS_CMD="$LS_CMD -G"
 fi
@@ -33,7 +33,7 @@ fi
 [ -f ~/NTUSER.DAT ] && LS_CMD="$LS_CMD -I NTUSER.DAT\\*"
 
 # Common ls shortcuts
-alias ls="$LS_CMD"
+alias ls=$LS_CMD
 alias la='ls -A'
 alias ll='ls -la'
 unset LS_CMD
@@ -46,6 +46,13 @@ alias -- -='cd -'
 
 # Colors for grep; works on both GNU and BSD
 alias grep='grep --color'
+
+# Colors for diff (GNU only)
+# Use the same format as git-diff
+if diff --help 2>/dev/null | grep -q -- --color
+	then alias diff='diff -u --color'
+	else alias diff='diff -u'
+fi
 
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
@@ -68,6 +75,7 @@ alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1'
 if command -v winpty >/dev/null
 then
 	alias pp='pipenv run winpty python'
+	alias python='winpty python'
 	alias stack='winpty stack'
 	alias latexmk='winpty latexmk'
 fi
