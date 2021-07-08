@@ -57,14 +57,17 @@ fi
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 
-# Useful on remote systems
-alias pt='pstree $(id -un)'
+# Show all my own processes (useful over SSH)
+alias pt="pstree -aC age $LOGNAME"
 
 # Start Jupyter Lab without activating Anaconda
 alias jp='~/.local/opt/anaconda3/bin/jupyter-lab --no-browser'
 
 # Generate secure random passwords
 alias pw='tr -dc \[:graph:] </dev/urandom | fold -w12 | head -n'
+
+# Find and count unique instances of a pattern
+enum() { grep -oh "$@" | sort | uniq -c; }
 
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
