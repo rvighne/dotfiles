@@ -2,7 +2,7 @@
 source $VIMRUNTIME/defaults.vim
 
 " Overrides for Git for Windows
-set wildmode& laststatus& statusline&
+set clipboard& wildmode& laststatus& statusline&
 
 " Main options
 set hidden
@@ -15,7 +15,6 @@ set splitbelow splitright
 set number cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
 set colorcolumn=+1
-set clipboard=unnamed
 set printoptions=formfeed:y
 
 " Background detection fails in Windows Terminal
