@@ -42,3 +42,7 @@
 	path = .vim/pack/plugins/start/vimtex
 	url = https://github.com/lervag/vimtex.git
 	branch = master
+[submodule ".vim/pack/plugins/start/sleuth"]
+	path = .vim/pack/plugins/start/sleuth
+	url = https://github.com/tpope/vim-sleuth.git
+	branch = master
