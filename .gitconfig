@@ -12,9 +12,12 @@
 	missingCommitsCheck = error
 [interactive]
 	singleKey = yes
-[diff]
-	colorMoved = yes
-	colorMovedWS = allow-indentation-change
 [merge]
 	conflictStyle = diff3
 	tool = vimdiff
+[diff]
+	colorMoved = yes
+	colorMovedWS = allow-indentation-change
+[blame]
+	date = human
+	coloring = highlightRecent
