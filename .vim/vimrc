@@ -11,7 +11,7 @@ set spell spellcapcheck= complete+=k
 set backspace=indent
 set autoindent shiftwidth=0 tabstop=4
 set ignorecase wildignorecase smartcase
-set splitbelow splitright
+set splitbelow splitright noequalalways
 set number cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
 set colorcolumn=+1
