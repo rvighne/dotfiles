@@ -12,6 +12,9 @@ fi
 # Use fancy colors for ls if GNU dircolors is available
 command -v dircolors >/dev/null && eval "$(exec dircolors -b)"
 
+# Show colors and avoid paginating if content doesn't fill screen
+export LESS=-FR
+
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege
 [ "$MSYSTEM" ] && MSYS=winsymlinks:nativestrict:$MSYS

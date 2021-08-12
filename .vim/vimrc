@@ -7,7 +7,7 @@ set clipboard& wildmode& laststatus& statusline&
 " Main options
 set hidden
 set showmatch hlsearch shortmess-=S
-set spell complete+=k
+set spell spellcapcheck= complete+=k
 set backspace=indent
 set autoindent shiftwidth=0 tabstop=4
 set ignorecase wildignorecase smartcase
@@ -68,7 +68,6 @@ inoremap {<CR> {<CR>}<ESC>O
 nnoremap _ yypVr=o<CR>
 
 " IDE actions
-nnoremap <silent> <F12> :terminal<CR>
 nnoremap <silent> <F2> :<C-u>ALERename<CR>
 nnoremap <silent> + :ALECodeAction<CR>
 nnoremap <silent> gd :<C-u>ALEGoToDefinition<CR>

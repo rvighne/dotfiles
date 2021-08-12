@@ -69,6 +69,9 @@ alias pw='tr -dc \[:graph:] </dev/urandom | fold -w12 | head -n'
 # Find and count unique instances of a pattern
 enum() { grep -oh "$@" | sort | uniq -c; }
 
+# Check status of all Git repos
+gst() { find "$1" -type d -name .git -exec git --git-dir {} --work-tree {}/.. status \;; }
+
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
 alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
@@ -122,8 +125,7 @@ PS1="$PS1\[\e[0m\] "
 cmd_status() {
 	local st=$? sig
 	if [ $st -gt 128 ] && sig=$(kill -l $st 2>/dev/null)
-	then
-		printf '%s ' "$sig"
+		then printf '%s ' "$sig"
 	elif [ $st -ne 0 ]
 		then printf '%d ' $st
 	fi
