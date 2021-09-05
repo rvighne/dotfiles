@@ -77,6 +77,13 @@ gst() { find "$1" -type d -name .git -exec git --git-dir {} --work-tree {}/.. st
 alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
 alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1'
 
+# Install configs for Windows Terminal (from WSL)
+cfg-wt() {
+	local wdst=$(wslvar LOCALAPPDATA)'\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\'
+	local ldst=$(wslpath -- "$wdst")
+	cp -- ~/.config/wt/settings.json "$ldst"
+}
+
 # Make TUI programs work on Windows
 if command -v winpty >/dev/null
 then
