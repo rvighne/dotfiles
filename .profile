@@ -12,8 +12,11 @@ fi
 # Use fancy colors for ls if GNU dircolors is available
 command -v dircolors >/dev/null && eval "$(exec dircolors -b)"
 
-# Show colors and avoid paginating if content doesn't fill screen
-export LESS=-FR
+# Use input filter for less if lesspipe is available
+command -v lesspipe >/dev/null && eval "$(SHELL=/bin/sh exec lesspipe)"
+
+# Interactive-friendly settings for less
+export LESS=-FRWx4
 
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege
