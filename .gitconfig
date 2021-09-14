@@ -10,6 +10,8 @@
 	lineNumber = yes
 [pull]
 	ff = only
+[fetch]
+	parallel = 0
 [rebase]
 	missingCommitsCheck = error
 [interactive]
