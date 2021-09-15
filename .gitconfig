@@ -16,6 +16,8 @@
 	missingCommitsCheck = error
 [interactive]
 	singleKey = yes
+[add.interactive]
+	useBuiltin = yes
 [merge]
 	conflictStyle = diff3
 	tool = vimdiff
