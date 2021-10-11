@@ -34,3 +34,6 @@
 [submodule ".vim/pack/plugins/start/sleuth"]
 	path = .vim/pack/plugins/start/sleuth
 	url = https://github.com/tpope/vim-sleuth.git
+[submodule ".vim/pack/plugins/start/numbertoggle"]
+	path = .vim/pack/plugins/start/numbertoggle
+	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
