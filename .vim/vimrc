@@ -56,7 +56,7 @@ nnoremap <silent> <BS> :<C-u>noh<CR>
 nnoremap <Space> <C-^>
 
 " Show buffer menu and prompt
-nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
+nnoremap <silent> <Leader><Leader> :<C-u>Buffers<CR>
 
 " FZF in the current project (Git repo if present, otherwise whole directory)
 nnoremap <expr> <silent> <C-p> FugitiveHead() != '' ? ':<C-u>GFiles<CR>' : ':<C-u>Files<CR>'
