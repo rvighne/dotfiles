@@ -10,3 +10,7 @@
 *history
 *hist
 *hst
+
+# Untracked configs
+.config/git
+.config/wslu
