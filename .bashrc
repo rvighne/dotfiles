@@ -57,6 +57,9 @@ fi
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 
+# Make bc useful as interactive calculator
+alias bc='bc -ql'
+
 # Show all my own processes (useful over SSH)
 alias pt="pstree -aC age $LOGNAME"
 
@@ -68,6 +71,9 @@ alias pw='tr -dc \[:graph:] </dev/urandom | fold -w12 | head -n'
 
 # Find and count unique instances of a pattern
 enum() { grep -oh "$@" | sort | uniq -c; }
+
+# Package maintenance on Ubuntu
+alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
 
 # Check status of all Git repos
 gst() { find "$1" -type d -name .git -exec git --git-dir {} --work-tree {}/.. status \;; }
