@@ -6,7 +6,7 @@ esac
 
 # (Re)attach tmux session if connecting remotely and it's installed
 # Using tmux -V (not command -v tmux), in case tmux exists but is broken
-[ "$SSH_TTY" -a -z "$TMUX" ] && tmux -V && exec tmux new -As main
+[ "$SSH_TTY" ] && [ -z "$TMUX" ] && tmux -V && exec tmux new -As main
 
 # Interactive-friendly settings; see also .inputrc
 case $0 in *bash)
