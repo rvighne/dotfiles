@@ -122,17 +122,17 @@ then
 fi
 
 # Blank line for separation
-PS1="\n"
+PS1='\n'
 # Set title to basename of current directory
-PS1="$PS1\[\e];\W\a\]"
+PS1=$PS1'\[\e];\W\a\]'
 # Error code or signal name in red
-PS1="$PS1\[\e[31m\]\$(cmd_status)"
+PS1=$PS1'\[\e[31m\]$(cmd_status)'
 # Current directory in green
-PS1="$PS1\[\e[32m\]\w"
+PS1=$PS1'\[\e[32m\]\w'
 # Git status (git-prompt.sh must be sourced) in cyan
-PS1="$PS1\[\e[36m\]\$(__git_ps1)"
+PS1=$PS1'\[\e[36m\]$(__git_ps1)'
 # Space before command in default style
-PS1="$PS1\[\e[0m\] "
+PS1=$PS1'\[\e[0m\] '
 
 # Helper function for prompt
 cmd_status() {
