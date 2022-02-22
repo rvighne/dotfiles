@@ -121,7 +121,7 @@ then
 	. $GIT_CONTRIB/completion/git-prompt.sh
 fi
 
-# Blank line for separation
+# Clear gap between command output and shell prompt
 PS1='\n'
 # Set title to basename of current directory
 PS1=$PS1'\[\e];\W\a\]'
@@ -129,9 +129,9 @@ PS1=$PS1'\[\e];\W\a\]'
 PS1=$PS1'\[\e[31m\]$(cmd_status)'
 # Current directory in green
 PS1=$PS1'\[\e[32m\]\w'
-# Git status (git-prompt.sh must be sourced) in cyan
-PS1=$PS1'\[\e[36m\]$(__git_ps1)'
-# Space before command in default style
+# Git status in cyan (requires git-prompt.sh)
+command -v __git_ps1 >/dev/null && PS1=$PS1'\[\e[36m\]$(__git_ps1)'
+# Space before command with colors reset
 PS1=$PS1'\[\e[0m\] '
 
 # Helper function for prompt
