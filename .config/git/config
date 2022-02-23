@@ -1,5 +1,3 @@
-[include]
-	path = ~/.config/git/user
 [column]
 	ui = auto
 [status]
