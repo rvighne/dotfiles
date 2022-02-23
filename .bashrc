@@ -113,13 +113,19 @@ fi
 # Enable Node Version Manager if installed
 [ -d ~/.nvm ] && . ~/.nvm/nvm.sh && . ~/.nvm/bash_completion
 
-# Git completions and prompt helper on FreeBSD
-GIT_CONTRIB=/usr/local/share/git-core/contrib
-if [ -d $GIT_CONTRIB ]
-then
-	. $GIT_CONTRIB/completion/git-completion.bash
-	. $GIT_CONTRIB/completion/git-prompt.sh
-fi
+# Find bash completions and PS1 helper for system Git
+# Supports macOS and FreeBSD; usually not needed for Windows or Linux
+for d in \
+	/Library/Developer/CommandLineTools/usr/share/git-core \
+	/usr/local/share/git-core/contrib/completion
+do
+	if [ -d "$d" ]
+	then
+		. "$d"/git-completion.bash
+		. "$d"/git-prompt.sh
+		break
+	fi
+done
 
 # Clear gap between command output and shell prompt
 PS1='\n'
