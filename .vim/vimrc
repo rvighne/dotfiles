@@ -20,7 +20,7 @@ set printoptions=formfeed:y
 " Background detection fails in Windows Terminal
 set background=dark
 
-" Windows Terminal doesn't support undercurl, so fallback to underline
+" No undercurl in Windows Terminal or iTerm2, so fallback to underline
 set t_Cs=
 
 " Better mouse support

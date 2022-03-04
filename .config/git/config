@@ -25,6 +25,8 @@
 [blame]
 	date = human
 	coloring = highlightRecent
+[core]
+	pager = less -FR
 [advice]
 	statusHints = no
 	detachedHead = no

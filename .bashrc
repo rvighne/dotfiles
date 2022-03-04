@@ -8,18 +8,6 @@ esac
 # Using tmux -V (not command -v tmux), in case tmux exists but is broken
 [ "$SSH_TTY" ] && [ -z "$TMUX" ] && tmux -V && exec tmux new -As main
 
-# Interactive-friendly settings; see also .inputrc
-case $0 in *bash)
-	shopt -s autocd
-	shopt -s direxpand
-	shopt -s globstar failglob
-	shopt -s checkjobs
-	shopt -s histappend
-	shopt -s no_empty_cmd_completion
-	HISTCONTROL=ignoreboth:erasedups
-	HISTSIZE=10000
-esac
-
 # Type indicators and human-readable sizes in ls
 LS_CMD='ls -hF'
 
@@ -149,3 +137,16 @@ cmd_status() {
 		then printf '%d ' $st
 	fi
 }
+
+# Interactive-friendly settings; see also .inputrc
+# Should be at end of .bashrc to avoid conflicting with prior shell init code
+case $0 in *bash)
+	shopt -s autocd
+	shopt -s direxpand
+	shopt -s globstar failglob
+	shopt -s checkjobs
+	shopt -s histappend
+	shopt -s no_empty_cmd_completion
+	HISTCONTROL=ignoreboth:erasedups
+	HISTSIZE=10000
+esac
