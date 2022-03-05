@@ -84,8 +84,19 @@ let g:netrw_banner = 0
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 
-" True-color scheme that matches terminal (One Half Dark)
-set termguicolors
+" Extend Vim's built-in output code detection for 24-bit color
+if &t_8f == '' && &t_8b == ''
+	set t_8f=[38;2;%lu;%lu;%lum
+	set t_8b=[48;2;%lu;%lu;%lum
+endif
+
+" Detect 24-bit color according to https://gist.github.com/XVilka/8346728
+if $COLORTERM =~? 'truecolor\|24bit' | set t_Co=16777216 | endif
+
+" Use 24-bit color whenever available; the colorscheme MUST define GUI colors
+if &t_Co >= 16777216 | set termguicolors | endif
+
+" Color scheme that matches terminal (One Half Dark)
 let g:one_allow_italics = 1
 colorscheme one
 
