@@ -77,6 +77,9 @@ nnoremap <silent> gD :<C-u>ALEGoToTypeDefinition<CR>
 " Also helps to use :Explore rather than :e
 let g:netrw_banner = 0
 
+" quick-scope plugin
+let g:qs_lazy_highlight = 1
+
 " ALE language server plugin
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
