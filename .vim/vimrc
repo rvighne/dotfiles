@@ -73,9 +73,6 @@ nnoremap <silent> + :ALECodeAction<CR>
 nnoremap <silent> gd :<C-u>ALEGoToDefinition<CR>
 nnoremap <silent> gD :<C-u>ALEGoToTypeDefinition<CR>
 
-" GHCi config file is just executable Haskell
-autocmd BufNewFile,BufRead .ghci set filetype=haskell
-
 " Don't need vinegar.vim for this :)
 " Also helps to use :Explore rather than :e
 let g:netrw_banner = 0
