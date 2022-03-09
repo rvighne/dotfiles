@@ -50,3 +50,6 @@
 [submodule ".vim/pack/plugins/start/unimpaired"]
 	path = .vim/pack/plugins/start/unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+[submodule ".vim/pack/plugins/start/traces"]
+	path = .vim/pack/plugins/start/traces
+	url = https://github.com/markonm/traces.vim.git
