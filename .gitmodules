@@ -47,3 +47,6 @@
 [submodule ".vim/pack/plugins/start/sneak"]
 	path = .vim/pack/plugins/start/sneak
 	url = https://github.com/justinmk/vim-sneak.git
+[submodule ".vim/pack/plugins/start/unimpaired"]
+	path = .vim/pack/plugins/start/unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
