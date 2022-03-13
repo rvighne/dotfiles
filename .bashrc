@@ -140,13 +140,15 @@ cmd_status() {
 
 # Interactive-friendly settings; see also .inputrc
 # Should be at end of .bashrc to avoid conflicting with prior shell init code
-case $0 in *bash)
+if [ "$BASH_VERSION" ]
+then
 	shopt -s autocd
 	shopt -s direxpand
 	shopt -s globstar failglob
 	shopt -s checkjobs
 	shopt -s histappend
 	shopt -s no_empty_cmd_completion
+	HISTTIMEFORMAT='%x %X  '
 	HISTCONTROL=ignoreboth:erasedups
 	HISTSIZE=10000
-esac
+fi
