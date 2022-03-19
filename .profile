@@ -22,6 +22,11 @@ command -v dircolors >/dev/null && eval "$(exec dircolors -b)"
 # Use input filter for less if lesspipe is available
 command -v lesspipe >/dev/null && eval "$(SHELL=/bin/sh exec lesspipe)"
 
+# Use Vim plugin-local fzf globally if installed
+fzf=~/.vim/pack/plugins/start/fzf/bin
+[ -x "$fzf"/fzf ] && PATH=$fzf:$PATH
+unset fzf
+
 # Ensure that SSH agent is started and accessible
 env=~/.ssh/agent.env
 no_agent() {

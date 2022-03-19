@@ -101,6 +101,14 @@ fi
 # Enable Node Version Manager if installed
 [ -d ~/.nvm ] && . ~/.nvm/nvm.sh && . ~/.nvm/bash_completion
 
+# Enable fzf shell integration if using local install
+fzf=~/.vim/pack/plugins/start/fzf
+case $(command -v fzf) in $fzf/*)
+	. "$fzf"/shell/completion.bash
+	. "$fzf"/shell/key-bindings.bash
+esac
+unset fzf
+
 # Find bash completions and PS1 helper for system Git
 # Supports macOS and FreeBSD; usually not needed for Windows or Linux
 for d in \
