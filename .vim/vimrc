@@ -1,18 +1,21 @@
 " Extend rather than replace Vim 8 defaults
 source $VIMRUNTIME/defaults.vim
 
+" Overrides for defaults.vim
+unlet c_comment_strings
+
 " Overrides for Git for Windows
 set clipboard& wildmode& laststatus& statusline&
 
 " Main options
 set hidden
 set showmatch hlsearch shortmess-=S
-set spell spellcapcheck= complete+=k
-set backspace=indent
+set spell spellcapcheck=
+set backspace=indent,eol formatoptions+=j
 set autoindent shiftwidth=0 tabstop=4
 set ignorecase wildignorecase smartcase
 set splitbelow splitright noequalalways
-set number cursorline
+set number relativenumber cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
 set colorcolumn=+1
 set printoptions=formfeed:y
@@ -24,13 +27,17 @@ set background=dark
 set t_Cs=
 
 " Better mouse support
-set ttymouse=sgr mouse=a
+set mouse=a ttymouse=sgr mousemodel=popup_setpos
 
 " More GUI-like behavior
 set title belloff=all lazyredraw
 
 " Improve responsiveness and disable swap files (DANGEROUS)
 set updatetime=100 noswapfile
+
+" Persistent undo tree
+set undodir=~/.vim/undo undofile
+call mkdir(&undodir, 'p', 0700)
 
 " Continuous pane boundary
 set fillchars+=vert:│
@@ -50,13 +57,13 @@ tnoremap ; :
 nnoremap <silent> , :<C-u>update<CR>
 
 " Quick hide search result highlighting
-nnoremap <silent> <BS> :<C-u>noh<CR>
+nnoremap <silent> <BS> :<C-u>nohlsearch<CR>
 
 " Speedy buffer switching
-nnoremap <Space> <C-^>
+nnoremap <SPACE> <C-^>
 
 " Show buffer menu and prompt
-nnoremap <silent> <Leader><Leader> :<C-u>Buffers<CR>
+nnoremap <silent> <C-n> :<C-u>Buffers<CR>
 
 " FZF in the current project (Git repo if present, otherwise whole directory)
 nnoremap <expr> <silent> <C-p> FugitiveHead() != '' ? ':<C-u>GFiles<CR>' : ':<C-u>Files<CR>'
@@ -72,6 +79,10 @@ nnoremap <silent> <F2> :<C-u>ALERename<CR>
 nnoremap <silent> + :ALECodeAction<CR>
 nnoremap <silent> gd :<C-u>ALEGoToDefinition<CR>
 nnoremap <silent> gD :<C-u>ALEGoToTypeDefinition<CR>
+
+" Useful built-in plugins
+packadd! cfilter
+packadd! matchit
 
 " Don't need vinegar.vim for this :)
 " Also helps to use :Explore rather than :e
