@@ -71,7 +71,7 @@ gst() { find "$1" -type d -name .git -exec git --git-dir {} --work-tree {}/.. st
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
 alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
-alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1'
+alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1 && command vim -es +helptags\ ALL +q #'
 alias cfg-edit='GIT_DIR=~/.cfg.git "$VISUAL"'
 
 # Install configs for Windows Terminal (from WSL)
