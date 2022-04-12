@@ -20,6 +20,10 @@ set linebreak breakindent showbreak=↳\ \ \ "
 set colorcolumn=+1
 set printoptions=formfeed:y
 
+" Disable spellcheck for program-driven buffers and the preview window
+autocmd BufWinEnter * if &buftype != '' | setlocal nospell | endif
+autocmd WinEnter * if &previewwindow | set nospell | endif
+
 " Make the fallback color scheme dark instead of light
 if empty(v:termrbgresp) | set background=dark | endif
 
