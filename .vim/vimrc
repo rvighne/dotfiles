@@ -11,6 +11,7 @@ set clipboard& wildmode& laststatus& statusline&
 set hidden
 set showmatch hlsearch shortmess-=S
 set spell spellcapcheck=
+set completeopt=menuone,popup
 set backspace=indent,eol formatoptions+=j
 set autoindent shiftwidth=0 tabstop=4
 set ignorecase wildignorecase smartcase
@@ -57,6 +58,10 @@ nnoremap Y y$
 noremap ; :
 tnoremap <C-w>; <C-w>:
 
+" More consistent history navigation
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
 " Quick save file without messing up timestamp
 nnoremap <silent> , :<C-u>update<CR>
 
@@ -92,11 +97,41 @@ inoremap {<CR> {<CR>}<ESC>O
 " Insert ASCII underline for headings
 nnoremap _ yypVr=o<CR>
 
+" Linter actions
+nmap [r <Plug>(ale_previous)
+nmap ]r <Plug>(ale_next)
+nmap [R <Plug>(ale_first)
+nmap ]R <Plug>(ale_last)
+
+" Missing <Plug> mappings for ALE
+nnoremap <unique> <silent> <Plug>(ale_find_references_quickfix) :<C-u>ALEFindReferences -quickfix \| cwindow<CR>
+vnoremap <unique> <silent> <Plug>(ale_code_action) :ALECodeAction<CR>
+nnoremap <unique> <silent> <Plug>(ale_organize_imports) :<C-u>ALEOrganizeImports<CR>
+
 " IDE actions
-nnoremap <silent> <F2> :<C-u>ALERename<CR>
-nnoremap <silent> + :ALECodeAction<CR>
-nnoremap <silent> gd :<C-u>ALEGoToDefinition<CR>
-nnoremap <silent> gD :<C-u>ALEGoToTypeDefinition<CR>
+autocmd User ALELSPStarted call s:ALELSPStarted()
+function s:ALELSPStarted()
+	nmap <buffer> K <Plug>(ale_hover)
+	nmap <buffer> gK <Plug>(ale_documentation)
+	nmap <buffer> <C-]> <Plug>(ale_go_to_definition)
+	nmap <buffer> <C-w>] <C-w><C-]>
+	nmap <buffer> <C-w><C-]> <Plug>(ale_go_to_definition_in_vsplit)
+	nmap <buffer> g<C-]> <Plug>(ale_go_to_type_definition)
+	nmap <buffer> <C-w>g] <C-w>g<C-]>
+	nmap <buffer> <C-w>g<C-]> <Plug>(ale_go_to_type_definition_in_vsplit)
+	nmap <buffer> - <Plug>(ale_find_references_quickfix)
+	nmap <buffer> + <Plug>(ale_code_action)
+	vmap <buffer> + <Plug>(ale_code_action)
+	nmap <buffer> <F2> <Plug>(ale_rename)
+	nmap <buffer> <S-F2> <Plug>(ale_file_rename)
+	nmap <buffer> <Leader>i <Plug>(ale_import)
+	nmap <buffer> <Leader>I <Plug>(ale_organize_imports)
+	setlocal omnifunc=ale#completion#OmniFunc
+endfunction
+
+" IDE actions (project-wide)
+nnoremap <Leader>s :<C-u>ALESymbolSearch -relative<SPACE>
+nmap <Leader><Leader>s <Plug>(ale_repeat_selection)
 
 " Make :terminal easier to escape by assuming there's no TUI running
 tnoremap <ScrollWheelUp> <C-w>N
@@ -125,8 +160,9 @@ let g:sneak#s_next = 1
 let g:traces_preview_window = 'new'
 
 " ALE language server plugin
-let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
+let g:ale_set_balloons = 1
 
 " Extend Vim's built-in output code detection for 24-bit color
 if empty(&t_8f) && empty(&t_8b)
