@@ -4,6 +4,9 @@ case $- in
 	*) return
 esac
 
+# Reconfigure tty (if present) to allow any key to resume after C-s
+stty ixany 2>/dev/null
+
 # (Re)attach tmux session if connecting remotely and it's installed
 # Using tmux -V (not command -v tmux), in case tmux exists but is broken
 if [ "${SSH_TTY:+x}${TMUX+y}" = x ] && tmux -V
