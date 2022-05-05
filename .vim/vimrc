@@ -153,9 +153,6 @@ if executable('wslview') | let g:netrw_browsex_viewer = 'wslview' | endif
 " quick-scope plugin
 let g:qs_lazy_highlight = 1
 
-" sneak plugin
-let g:sneak#s_next = 1
-
 " traces plugin
 let g:traces_preview_window = 'new'
 
