@@ -6,25 +6,25 @@ esac
 
 # (Re)attach tmux session if connecting remotely and it's installed
 # Using tmux -V (not command -v tmux), in case tmux exists but is broken
-[ "$SSH_TTY" ] && [ -z "$TMUX" ] && tmux -V && exec tmux new -As main
+[ "${SSH_TTY+x}${TMUX+y}" = x ] && tmux -V && exec tmux new -As main
 
 # Type indicators and human-readable sizes in ls
-LS_CMD='ls -hF'
+ls='ls -hF'
 
 # Terminal colors on both GNU and BSD
 if ls --help 2>/dev/null | grep -q -- --color
-	then LS_CMD="$LS_CMD --color=auto"
-	else LS_CMD="$LS_CMD -G"
+	then ls="$ls --color=auto"
+	else ls="$ls -G"
 fi
 
 # Hide registry hive files on Windows
-[ -f ~/NTUSER.DAT ] && LS_CMD="$LS_CMD -I NTUSER.DAT\\*"
+[ -f ~/NTUSER.DAT ] && ls="$ls -I NTUSER.DAT\\*"
 
 # Common ls shortcuts
-alias ls=$LS_CMD
+alias ls=$ls
 alias la='ls -A'
 alias ll='ls -la'
-unset LS_CMD
+unset ls
 
 # Show brief directory listing on directory change
 cd() { command cd "$@" && ls; }
@@ -148,7 +148,7 @@ cmd_status() {
 
 # Interactive-friendly settings; see also .inputrc
 # Should be at end of .bashrc to avoid conflicting with prior shell init code
-if [ "$BASH_VERSION" ]
+if [ ${BASH_VERSION+x} ]
 then
 	shopt -s autocd
 	shopt -s direxpand

@@ -14,7 +14,7 @@ export LESS=-iRx4
 
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege
-[ "$MSYSTEM" ] && export MSYS=winsymlinks:nativestrict:$MSYS
+[ ${MSYSTEM+x} ] && export MSYS=winsymlinks:nativestrict:$MSYS
 
 # Use fancy colors for ls if GNU dircolors is available
 command -v dircolors >/dev/null && eval "$(exec dircolors -b)"
@@ -31,11 +31,12 @@ unset fzf
 env=~/.ssh/agent.env
 no_agent() {
 	ssh-add -l >/dev/null 2>&1
-	[ $? == 2 ]
+	[ $? -eq 2 ]
 }
 
-if no_agent; then
-	[ -r "$env" ] && . "$env" >/dev/null
+if no_agent
+then
+	[ -e "$env" ] && . "$env" >/dev/null
 	no_agent && (umask 066; exec ssh-agent -s >|"$env") && . "$env" >/dev/null
 fi
 
