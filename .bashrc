@@ -104,6 +104,9 @@ then
 	enter() { docker-compose exec "$1" bash; }
 fi
 
+# Store private or machine-local .bashrc separately
+[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc
+
 # Enable Node Version Manager if installed
 [ -d ~/.nvm ] && . ~/.nvm/nvm.sh && . ~/.nvm/bash_completion
 
