@@ -168,12 +168,18 @@ PS1=$PS1'\[\e[0m\] '
 if [ ${BASH_VERSION+x} ]
 then
 	shopt -s autocd
-	shopt -s direxpand
 	shopt -s globstar failglob
+	shopt -s no_empty_cmd_completion direxpand
 	shopt -s checkjobs
 	shopt -s histappend
-	shopt -s no_empty_cmd_completion
+
 	HISTTIMEFORMAT='%x %X  '
 	HISTCONTROL=ignoreboth:erasedups
-	HISTSIZE=10000
+
+	# Make HISTFILESIZE use the default ($HISTSIZE, which we set to unlimited)
+	HISTSIZE=
+	unset HISTFILESIZE
+
+	# Must come after any shell init code where HISTFILESIZE is set
+	HISTFILE=~/.bash_history_eternal
 fi
