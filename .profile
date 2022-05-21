@@ -17,10 +17,10 @@ export LESS=-iRx4
 [ ${MSYSTEM+x} ] && export MSYS=winsymlinks:nativestrict:$MSYS
 
 # Use fancy colors for ls if GNU dircolors is available
-command -v dircolors >/dev/null && eval "$(exec dircolors -b)"
+command -v dircolors >/dev/null && eval "$(dircolors -b)"
 
 # Use input filter for less if lesspipe is available
-command -v lesspipe >/dev/null && eval "$(SHELL=/bin/sh exec lesspipe)"
+command -v lesspipe >/dev/null && eval "$(lesspipe)"
 
 # Use Vim plugin-local fzf globally if installed
 fzf=~/.vim/pack/plugins/start/fzf/bin

@@ -6,7 +6,9 @@ esac
 
 # (Re)attach tmux session if connecting remotely and it's installed
 # Using tmux -V (not command -v tmux), in case tmux exists but is broken
-[ "${SSH_TTY+x}${TMUX+y}" = x ] && tmux -V && exec tmux new -As main
+if [ "${SSH_TTY:+x}${TMUX+y}" = x ] && tmux -V
+	then exec tmux new -As main
+fi
 
 # Type indicators and human-readable sizes in ls
 ls='ls -hF'
@@ -21,7 +23,7 @@ fi
 [ -f ~/NTUSER.DAT ] && ls="$ls -I NTUSER.DAT\\*"
 
 # Common ls shortcuts
-alias ls=$ls
+alias ls="$ls"
 alias la='ls -A'
 alias ll='ls -la'
 unset ls
@@ -72,7 +74,7 @@ alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
 alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1'
 
 # Install configs for Windows Terminal (from WSL)
-cfg-wt() {
+cfg_wt() {
 	local wdst=$(wslvar LOCALAPPDATA)'\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\'
 	local ldst=$(wslpath -- "$wdst")
 	cp -- ~/.config/wt/settings.json "$ldst"
