@@ -20,19 +20,19 @@ set linebreak breakindent showbreak=↳\ \ \ "
 set colorcolumn=+1
 set printoptions=formfeed:y
 
-" Background detection fails in Windows Terminal
-set background=dark
+" Make the fallback color scheme dark instead of light
+if empty(v:termrbgresp) | set background=dark | endif
 
 " No undercurl in Windows Terminal or iTerm2, so fallback to underline
 set t_Cs=
 
-" Better mouse support
+" More traditional mouse behavior (click-drag, menus)
 set mouse=a ttymouse=sgr mousemodel=popup_setpos
 
 " More GUI-like behavior
 set title belloff=all lazyredraw
 
-" Improve responsiveness and disable swap files (DANGEROUS)
+" Improve responsiveness and disable swap files (save often!)
 set updatetime=100 noswapfile
 
 " Persistent undo tree
@@ -42,9 +42,9 @@ call mkdir(&undodir, 'p', 0700)
 " Continuous pane boundary
 set fillchars+=vert:│
 
-" Mode-dependent cursor shape
+" Mode-dependent cursor shape; assumes default (outside Vim) is blinking bar
 set t_SI=[5\ q t_SR=[3\ q t_EI=[1\ q
-autocmd VimLeave * set t_me=[0\ q
+autocmd VimLeave * set t_me=[5\ q
 
 " Why isn't this default
 nnoremap Y y$
@@ -100,6 +100,9 @@ packadd! matchit
 " Also helps to use :Explore rather than :e
 let g:netrw_banner = 0
 
+" Open links from WSL
+if executable('wslview') | let g:netrw_browsex_viewer = 'wslview' | endif
+
 " quick-scope plugin
 let g:qs_lazy_highlight = 1
 
@@ -114,7 +117,7 @@ let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 
 " Extend Vim's built-in output code detection for 24-bit color
-if &t_8f == '' && &t_8b == ''
+if empty(&t_8f) && empty(&t_8b)
 	set t_8f=[38;2;%lu;%lu;%lum
 	set t_8b=[48;2;%lu;%lu;%lum
 endif
