@@ -47,6 +47,14 @@ if diff --help 2>/dev/null | grep -q -- --color
 	else alias diff='diff -u'
 fi
 
+# Human-readable sizes in various tools
+alias df='df -h'
+alias du='du -h'
+alias free='free -h'
+
+# Show cmdline and color by start time
+alias pstree='pstree -aC age'
+
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 
@@ -54,7 +62,7 @@ mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 alias bc='bc -ql'
 
 # Show all my own processes (useful over SSH)
-alias pt="pstree -aC age $LOGNAME"
+alias pt='pstree -- "$USER"'
 
 # Start Jupyter Lab without activating Anaconda
 alias jp='~/.local/opt/anaconda3/bin/jupyter-lab --no-browser'
