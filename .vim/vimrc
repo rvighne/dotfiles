@@ -15,7 +15,7 @@ set completeopt=menuone,popup
 set backspace=indent,eol formatoptions+=j
 set autoindent shiftwidth=0 tabstop=4
 set ignorecase wildignorecase smartcase
-set splitbelow splitright noequalalways
+set splitbelow splitright
 set number relativenumber cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
 set colorcolumn=+1
@@ -50,6 +50,9 @@ set fillchars+=vert:│
 " Mode-dependent cursor shape; assumes default (outside Vim) is blinking bar
 set t_SI=[5\ q t_SR=[3\ q t_EI=[1\ q
 autocmd VimLeave * set t_me=[5\ q
+
+" Make equalalways actually work as advertised when the terminal is resized
+autocmd VimResized * if &equalalways | wincmd = | endif
 
 " Why isn't this default
 nnoremap Y y$
