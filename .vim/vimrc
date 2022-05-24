@@ -84,11 +84,12 @@ nnoremap <C-l> <C-w>l
 nnoremap <silent> <C-n> :<C-u>Buffers<CR>
 
 " Alternative to GFiles: integrate with Fugitive to work better in edge cases
-" Completion should actually be pathspec, not file, but close enough
-command -bang -nargs=* -complete=file FugitiveFiles
+" Completion should actually be pathspec, not dir, but close enough
+command -bang -nargs=* -complete=dir FugitiveFiles
 \	call fzf#run(fzf#wrap('gfiles', fzf#vim#with_preview({
-\		'source': FugitiveShellCommand('ls-files', '-z', '--', <f-args>),
-\		'options': '--read0 --multi --no-clear --prompt=' . shellescape('FugitiveFiles> ')
+\		'source': FugitiveShellCommand('--no-literal-pathspecs', 'ls-files', '-z', '--', <f-args>),
+\		'options': '--read0 --multi --no-clear --prompt=' . shellescape('FugitiveFiles> '),
+\		'dir': FugitiveWorkTree(),
 \	}), <bang>0))
 
 " FZF in the current project (Git repo if present, otherwise whole directory)
