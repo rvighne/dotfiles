@@ -17,8 +17,9 @@ To install (note that the checkout will conflict with any existing dotfiles):
 	rmdir dotfiles
 	git --git-dir ~/.cfg.git --work-tree ~ checkout
 
-Then, I highly recommended hiding untracked files (i.e. most of your home directory), and fetching the Vim plugins:
+Then, I highly recommended hiding untracked files (i.e. most of your home directory), setting `core.worktree` so that external tools work, and fetching the Vim plugins:
 
 	cfg config status.showUntrackedFiles no
 	cfg config diff.ignoreSubmodules all
+	cfg config core.worktree ~
 	cfg-plug

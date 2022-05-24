@@ -71,8 +71,16 @@ nnoremap <C-l> <C-w>l
 " Show buffer menu and prompt
 nnoremap <silent> <C-n> :<C-u>Buffers<CR>
 
+" Alternative to GFiles: integrate with Fugitive to work better in edge cases
+" Completion should actually be pathspec, not file, but close enough
+command -bang -nargs=* -complete=file FugitiveFiles
+\	call fzf#run(fzf#wrap('gfiles', fzf#vim#with_preview({
+\		'source': FugitiveShellCommand('ls-files', '-z', '--', <f-args>),
+\		'options': '--read0 --multi --no-clear --prompt=' . shellescape('FugitiveFiles> ')
+\	}), <bang>0))
+
 " FZF in the current project (Git repo if present, otherwise whole directory)
-nnoremap <expr> <silent> <C-p> FugitiveHead() != '' ? ':<C-u>GFiles<CR>' : ':<C-u>Files<CR>'
+nnoremap <expr> <silent> <C-p> FugitiveIsGitDir() ? ':<C-u>FugitiveFiles<CR>' : ':<C-u>Files<CR>'
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
