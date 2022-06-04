@@ -163,6 +163,12 @@ nmap <Leader><Leader>s <Plug>(ale_repeat_selection)
 packadd! cfilter
 packadd! matchit
 
+" Enhance manpage integration using the builtin man ftplugin
+let g:ft_man_no_sect_fallback = 1
+source $VIMRUNTIME/ftplugin/man.vim
+set keywordprg=:Man
+cnoreabbrev man Man
+
 " Don't need vinegar.vim for this :)
 " Also helps to use :Explore rather than :e
 let g:netrw_banner = 0

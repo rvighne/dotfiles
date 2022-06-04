@@ -12,6 +12,10 @@ export VISUAL=$(command -v vim || command -v vi)
 # Interactive-friendly settings for less
 export LESS=-iRx4
 
+# Use Vim to show manpages (with hyperlinks and colors)
+# manpager.vim has a bug where it forgets to reset 'modifiable'
+export MANPAGER='vim +MANPAGER +setlocal\ nomodifiable -'
+
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege
 [ ${MSYSTEM+x} ] && export MSYS=winsymlinks:nativestrict:$MSYS
