@@ -5,10 +5,11 @@ source $VIMRUNTIME/defaults.vim
 unlet c_comment_strings
 
 " Overrides for Git for Windows
-set clipboard& wildmode& laststatus& statusline&
+set clipboard& wildmode& statusline&
 
 " Main options
 set hidden
+set laststatus=2
 set showmatch hlsearch shortmess-=S
 set spell spellcapcheck=
 set completeopt=menuone,popup
@@ -80,6 +81,18 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Speedy window switching (consistent in terminal)
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
+
+" Make :terminal easier to escape by assuming there's no TUI running
+tnoremap <ScrollWheelUp> <C-w>N
+tnoremap <ScrollWheelDown> <C-w>N
+tnoremap <ScrollWheelLeft> <C-w>N
+tnoremap <ScrollWheelRight> <C-w>N
+
 " Show buffer menu and prompt
 nnoremap <silent> <C-n> :<C-u>Buffers<CR>
 
@@ -94,6 +107,13 @@ command -bang -nargs=* -complete=dir FugitiveFiles
 
 " FZF in the current project (Git repo if present, otherwise whole directory)
 nnoremap <expr> <silent> <C-p> FugitiveIsGitDir() ? ':<C-u>FugitiveFiles<CR>' : ':<C-u>Files<CR>'
+
+" git grep without hit-enter prompt nor jumping to the first match
+nnoremap <Leader>gg :<C-u>Ggrep! -q<SPACE>
+
+" git grep (i.e. project-wide) analog of * (word search)
+nnoremap <silent> <Leader>* :<C-u>Ggrep -q -w <cword> --<CR>
+nnoremap <silent> <Leader>g* :<C-u>Ggrep -q <cword> --<CR>
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
@@ -137,12 +157,6 @@ endfunction
 nnoremap <Leader>s :<C-u>ALESymbolSearch -relative<SPACE>
 nmap <Leader><Leader>s <Plug>(ale_repeat_selection)
 
-" Make :terminal easier to escape by assuming there's no TUI running
-tnoremap <ScrollWheelUp> <C-w>N
-tnoremap <ScrollWheelDown> <C-w>N
-tnoremap <ScrollWheelLeft> <C-w>N
-tnoremap <ScrollWheelRight> <C-w>N
-
 " Useful built-in plugins
 packadd! cfilter
 packadd! matchit
@@ -162,8 +176,10 @@ let g:traces_preview_window = 'new'
 
 " ALE language server plugin
 let g:ale_fix_on_save = 1
+let g:ale_lsp_suggestions = 1
 let g:ale_completion_enabled = 1
-let g:ale_set_balloons = 1
+let g:ale_set_balloons = 'hover'
+let g:ale_echo_msg_format = '(%linter%) %code: %%s'
 
 " Extend Vim's built-in output code detection for 24-bit color
 if empty(&t_8f) && empty(&t_8b)

@@ -53,7 +53,7 @@ alias du='du -h'
 alias free='free -h'
 
 # Show cmdline and color by start time
-alias pstree='pstree -aC age'
+alias pstree='pstree -apC age'
 
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
@@ -62,7 +62,7 @@ mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 alias bc='bc -ql'
 
 # Show all my own processes (useful over SSH)
-alias pt='pstree -- "$USER"'
+pt() { pstree "$@" -- "$USER"; }
 
 # Start Jupyter Lab without activating Anaconda
 alias jp='~/.local/opt/anaconda3/bin/jupyter-lab --no-browser'
