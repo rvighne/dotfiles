@@ -11,7 +11,7 @@ set clipboard& wildmode& statusline&
 set hidden
 set laststatus=2
 set showmatch hlsearch shortmess-=S
-set spell spellcapcheck=
+set spellcapcheck=
 set completeopt=menuone,popup
 set backspace=indent,eol formatoptions+=j
 set autoindent shiftwidth=0 tabstop=4
@@ -21,10 +21,6 @@ set number relativenumber cursorline
 set linebreak breakindent showbreak=↳\ \ \ "
 set colorcolumn=+1
 set printoptions=formfeed:y
-
-" Disable spellcheck for program-driven buffers and the preview window
-autocmd BufWinEnter * if &buftype != '' | setlocal nospell | endif
-autocmd WinEnter * if &previewwindow | set nospell | endif
 
 " Make the fallback color scheme dark instead of light
 " Neovim lacks background color detection, but it defaults to dark anyway
