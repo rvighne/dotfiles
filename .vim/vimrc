@@ -1,8 +1,8 @@
 " Extend rather than replace Vim 8 defaults
-source $VIMRUNTIME/defaults.vim
-
-" Overrides for defaults.vim
-unlet c_comment_strings
+if !has('nvim')
+	source $VIMRUNTIME/defaults.vim
+	unlet c_comment_strings
+endif
 
 " Overrides for Git for Windows
 set clipboard& wildmode& statusline&
@@ -27,13 +27,15 @@ autocmd BufWinEnter * if &buftype != '' | setlocal nospell | endif
 autocmd WinEnter * if &previewwindow | set nospell | endif
 
 " Make the fallback color scheme dark instead of light
-if empty(v:termrbgresp) | set background=dark | endif
+" Neovim lacks background color detection, but it defaults to dark anyway
+if !has('nvim') && empty(v:termrbgresp) | set background=dark | endif
 
 " No undercurl in Windows Terminal or iTerm2, so fallback to underline
 set t_Cs=
 
 " More traditional mouse behavior (click-drag, menus)
-set mouse=a ttymouse=sgr mousemodel=popup_setpos
+set mouse=a mousemodel=popup_setpos
+if !has('nvim') | set ttymouse=sgr | endif
 
 " More GUI-like behavior
 set title belloff=all lazyredraw
