@@ -1,26 +1,37 @@
-" Extend rather than replace Vim 8 defaults
-if !has('nvim')
-	source $VIMRUNTIME/defaults.vim
-	unlet c_comment_strings
-endif
-
 " Overrides for Git for Windows
 set clipboard& wildmode& statusline&
 
-" Main options
+" Window/buffer options
 set hidden
-set laststatus=2
-set showmatch hlsearch shortmess-=S
-set spellcapcheck=
-set completeopt=menuone,popup
-set backspace=indent,eol formatoptions+=j
-set autoindent shiftwidth=0 tabstop=4
-set ignorecase wildignorecase smartcase
+set laststatus=2 ruler showcmd
 set splitbelow splitright
-set number relativenumber cursorline
-set linebreak breakindent showbreak=↳\ \ \ "
+set number relativenumber
 set colorcolumn=+1
-set printoptions=formfeed:y
+set cursorline
+set linebreak breakindent showbreak=↳\ \ \ "
+set scrolloff=5
+set display=truncate
+
+" Searching
+set incsearch hlsearch shortmess-=S
+set ignorecase wildignorecase smartcase
+
+" Insert mode
+set showmatch
+set completeopt=menuone,popup
+set backspace=indent,eol
+
+" Formatting
+set spellcapcheck=
+set autoindent shiftwidth=0 tabstop=4
+set formatoptions+=j
+
+" Command mode
+set history=1000
+set wildmenu
+
+" Treat ^L as page break
+set printoptions+=formfeed:y
 
 " Make the fallback color scheme dark instead of light
 " Neovim lacks background color detection, but it defaults to dark anyway
@@ -38,6 +49,7 @@ set title belloff=all lazyredraw
 
 " Improve responsiveness and disable swap files (save often!)
 set updatetime=100 noswapfile
+set ttimeout ttimeoutlen=100
 
 " Persistent undo tree
 set undodir=~/.vim/undo undofile
@@ -52,6 +64,20 @@ autocmd VimLeave * set t_me=[5\ q
 
 " Make equalalways actually work as advertised when the terminal is resized
 autocmd VimResized * if &equalalways | wincmd = | endif
+
+" Ensure text width equals window width in terminal normal mode
+autocmd TerminalWinOpen * setlocal nonumber norelativenumber
+
+" Jump to the last cursor position when re-opening a file
+" Adapted from $VIMRUNTIME/defaults.vim
+autocmd BufReadPost *
+\	if line("'\"") <= line('$') && &filetype !~# 'commit'
+\	|	normal! g`"
+\	| endif
+
+" Set an undo point before deleting a whole line in insert mode
+" Stolen from $VIMRUNTIME/defaults.vim
+inoremap <C-u> <C-g>u<C-u>
 
 " Why isn't this default
 nnoremap Y y$
@@ -196,6 +222,10 @@ if $COLORTERM =~? 'truecolor\|24bit' | set t_Co=16777216 | endif
 
 " Use 24-bit color whenever available; the colorscheme MUST define GUI colors
 if &t_Co >= 16777216 | set termguicolors | endif
+
+" Most plugins expect filetype to be enabled before syntax
+filetype plugin indent on
+syntax on
 
 " Color scheme that matches terminal (One Half Dark)
 let g:one_allow_italics = 1
