@@ -13,8 +13,7 @@ export VISUAL=$(command -v vim || command -v vi)
 export LESS=-iRx4
 
 # Use Vim to show manpages (with hyperlinks and colors)
-# manpager.vim has a bug where it forgets to reset 'modifiable'
-export MANPAGER='vim +MANPAGER +setlocal\ nomodifiable -'
+export MANPAGER='vim +MANPAGER --not-a-term -'
 
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege
