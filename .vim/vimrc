@@ -1,6 +1,9 @@
 " Overrides for Git for Windows
 set clipboard& wildmode& statusline&
 
+" Define/clear a group for all autocmd's in this file
+augroup myvimrc | autocmd! | augroup END
+
 " Window/buffer options
 set hidden
 set laststatus=2 ruler showcmd
@@ -60,17 +63,17 @@ set fillchars+=vert:│
 
 " Mode-dependent cursor shape; assumes default (outside Vim) is blinking bar
 set t_SI=[5\ q t_SR=[3\ q t_EI=[1\ q
-autocmd VimLeave * set t_me=[5\ q
+autocmd myvimrc VimLeave * set t_me=[5\ q
 
 " Make equalalways actually work as advertised when the terminal is resized
-autocmd VimResized * if &equalalways | wincmd = | endif
+autocmd myvimrc VimResized * if &equalalways | wincmd = | endif
 
 " Ensure text width equals window width in terminal normal mode
-autocmd TerminalWinOpen * setlocal nonumber norelativenumber
+autocmd myvimrc TerminalWinOpen * setlocal nonumber norelativenumber
 
 " Jump to the last cursor position when re-opening a file
 " Adapted from $VIMRUNTIME/defaults.vim
-autocmd BufReadPost *
+autocmd myvimrc BufReadPost *
 \	if line("'\"") <= line('$') && &filetype !~# 'commit'
 \	|	normal! g`"
 \	| endif
@@ -152,12 +155,12 @@ nmap [R <Plug>(ale_first)
 nmap ]R <Plug>(ale_last)
 
 " Missing <Plug> mappings for ALE
-nnoremap <unique> <silent> <Plug>(ale_find_references_quickfix) :<C-u>ALEFindReferences -quickfix \| cwindow<CR>
-vnoremap <unique> <silent> <Plug>(ale_code_action) :ALECodeAction<CR>
-nnoremap <unique> <silent> <Plug>(ale_organize_imports) :<C-u>ALEOrganizeImports<CR>
+nnoremap <silent> <Plug>(ale_find_references_quickfix) :<C-u>ALEFindReferences -quickfix \| cwindow<CR>
+vnoremap <silent> <Plug>(ale_code_action) :ALECodeAction<CR>
+nnoremap <silent> <Plug>(ale_organize_imports) :<C-u>ALEOrganizeImports<CR>
 
 " IDE actions
-autocmd User ALELSPStarted call s:ALELSPStarted()
+autocmd myvimrc User ALELSPStarted call s:ALELSPStarted()
 function s:ALELSPStarted()
 	nmap <buffer> K <Plug>(ale_hover)
 	nmap <buffer> gK <Plug>(ale_documentation)
