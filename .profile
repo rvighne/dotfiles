@@ -1,8 +1,8 @@
 # C locale causes encoding issues in Vim
 export LANG=en_US.UTF-8
 
-# Built from source or local programs
-export PATH=~/.local/bin:$PATH
+# Personal scripts and built from source programs
+export PATH=~/bin:~/.local/bin:$PATH
 
 # Set default editor to Vim or similar
 # E.g. used by tmux to determine keybindings
@@ -14,7 +14,10 @@ export LESS=-iRx4
 
 # Use Vim to show manpages (with hyperlinks and colors)
 # manpager.vim has a bug where it forgets to reset 'modifiable'
-export MANPAGER='vim +MANPAGER +setlocal\ nomodifiable -'
+export MANPAGER='vim +MANPAGER +setlocal\ nomodifiable --not-a-term -'
+
+# Use ripgrep to speed up FZF and ease searching Git repos
+command -v rg >/dev/null && export FZF_DEFAULT_COMMAND='rg --files'
 
 # Use real symlinks on Windows
 # Requires user to have SeCreateSymbolicLinkPrivilege

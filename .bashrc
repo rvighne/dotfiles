@@ -64,14 +64,11 @@ alias bc='bc -ql'
 # Show all my own processes (useful over SSH)
 pt() { pstree "$@" -- "$USER"; }
 
-# Start Jupyter Lab without activating Anaconda
-alias jp='~/.local/opt/anaconda3/bin/jupyter-lab --no-browser'
-
 # Generate secure random passwords
-alias pw='tr -dc \[:graph:] </dev/urandom | fold -w12 | head -n'
+alias pw='tr -dc \[:graph:] </dev/urandom | fold -b -w12'
 
 # Find and count unique instances of a pattern
-enum() { grep -oh "$@" | sort | uniq -c; }
+histogram() { LC_ALL=C command grep -oh "$@" | LC_ALL=C sort | LC_ALL=C uniq -c; }
 
 # Package maintenance on Ubuntu
 alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
@@ -99,17 +96,6 @@ then
 	alias python='winpty python'
 	alias stack='winpty stack'
 	alias latexmk='winpty latexmk'
-fi
-
-# Docker Compose is too verbose
-if command -v docker-compose >/dev/null
-then
-	alias up='docker-compose up -d --build --remove-orphans'
-	alias re='up --force-recreate --no-deps'
-	alias down='docker-compose down'
-	alias dps='docker-compose ps -a'
-	alias logs='docker-compose logs -f'
-	enter() { docker-compose exec "$1" bash; }
 fi
 
 # Store private or machine-local .bashrc separately

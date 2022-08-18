@@ -33,6 +33,9 @@ set formatoptions+=j
 set history=1000
 set wildmenu
 
+" Look for includes in current dir, all parent dirs, and working dir
+set path=.;,,
+
 " Treat ^L as page break
 set printoptions+=formfeed:y
 
@@ -50,9 +53,11 @@ if !has('nvim') | set ttymouse=sgr | endif
 " More GUI-like behavior
 set title belloff=all lazyredraw
 
-" Improve responsiveness and disable swap files (save often!)
+" Improve autocmd responsiveness and disable swap files (save often!)
 set updatetime=100 noswapfile
-set ttimeout ttimeoutlen=100
+
+" Less surprising keyboard behavior
+set notimeout ttimeout ttimeoutlen=0
 
 " Persistent undo tree
 set undodir=~/.vim/undo undofile
@@ -74,7 +79,7 @@ autocmd myvimrc TerminalWinOpen * setlocal nonumber norelativenumber
 " Jump to the last cursor position when re-opening a file
 " Adapted from $VIMRUNTIME/defaults.vim
 autocmd myvimrc BufReadPost *
-\	if line("'\"") <= line('$') && &filetype !~# 'commit'
+\	if line("'\"") >= 1 && line("'\"") <= line('$') && &filetype !~# 'commit'
 \	|	normal! g`"
 \	| endif
 
@@ -124,7 +129,6 @@ tnoremap <ScrollWheelRight> <C-w>N
 nnoremap <silent> <C-n> :<C-u>Buffers<CR>
 
 " Alternative to GFiles: integrate with Fugitive to work better in edge cases
-" Completion should actually be pathspec, not dir, but close enough
 command -bang -nargs=* -complete=dir FugitiveFiles
 \	call fzf#run(fzf#wrap('gfiles', fzf#vim#with_preview({
 \		'source': FugitiveShellCommand('--no-literal-pathspecs', 'ls-files', '-z', '--', <f-args>),

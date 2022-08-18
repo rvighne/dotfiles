@@ -4,9 +4,15 @@
 
 # Databases
 .vim/spell
+.vim/undo
 .viminfo
+.wget-hsts
 
 # Readline
 *history
 *hist
 *hst
+
+# Machine-local
+.vim/plugin
+.config/bash
