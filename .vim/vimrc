@@ -232,7 +232,7 @@ if &t_Co >= 16777216 | set termguicolors | endif
 
 " Most plugins expect filetype to be enabled before syntax
 filetype plugin indent on
-syntax on
+syntax enable
 
 " Color scheme that matches terminal (One Half Dark)
 let g:one_allow_italics = 1
@@ -243,3 +243,9 @@ call one#highlight('SpellBad', 'd19a66', '', '')
 call one#highlight('SpellCap', 'd19a66', '', '')
 call one#highlight('SpellLocal', 'd19a66', '', '')
 call one#highlight('SpellRare', 'd19a66', '', '')
+
+" Define fallback colors for termdebug plugin that match colorscheme
+" Must come after :colorscheme, because some of them call :highlight clear
+" Must come before :packadd termdebug, else those (ugly) colors take priority
+highlight default link debugPC QuickFixLine
+highlight default link debugBreakpoint Debug
