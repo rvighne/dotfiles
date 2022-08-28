@@ -86,8 +86,13 @@ alias fd=fdfind
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
 alias cfg='git --git-dir ~/.cfg.git --work-tree ~'
-alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1 && (vim -es +helptags\ ALL +q || true) #'
 alias cfg-edit='GIT_DIR=~/.cfg.git "$VISUAL"'
+
+# Fetch Vim plugins and rebuild helptags
+cfg_plug() {
+	cfg submodule update --init --recursive --remote --depth 1 || return
+	command vim -es +'helptags ALL' +q || true
+}
 
 # Install configs for Windows Terminal (from WSL)
 cfg_wt() {

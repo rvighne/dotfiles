@@ -10,8 +10,7 @@
 .wget-hsts
 
 # Readline
-*history
-*hist
+*hist*
 *hst
 
 # Machine-local
