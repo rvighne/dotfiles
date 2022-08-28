@@ -94,9 +94,10 @@ cfg_plug() {
 	command vim -es +'helptags ALL' +q || true
 }
 
-# Install configs for Windows Terminal (from WSL)
+# Install configs for Windows Terminal Preview (from WSL)
+# Assumes ~/remote is symlinked to your Windows home directory
 cfg_wt() {
-	local wdst=$(wslvar LOCALAPPDATA)'\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\'
-	local ldst=$(wslpath -- "$wdst")
-	cp -- ~/.config/wt/settings.json "$ldst"
+	cp \
+		~/.config/wt/settings.json \
+		~/remote/AppData/Local/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/
 }

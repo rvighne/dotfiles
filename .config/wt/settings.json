@@ -1,12 +1,15 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
-    "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+    "defaultProfile": "{51855cb2-8cce-5362-8f54-464b92b32386}",
     "disabledProfileSources": ["Windows.Terminal.Azure"],
 
+    "copyOnSelect": true,
     "tabSwitcherMode": "mru",
 
     "useAcrylicInTabRow": true,
+    "disableAnimations": true,
 
     "actions":
     [
@@ -57,19 +60,13 @@
             {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "name": "Windows PowerShell",
-                "commandline": "powershell.exe",
                 "colorScheme": "Campbell Powershell"
             },
             {
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "name": "Command Prompt"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
                 "name": "Ubuntu",
-                "startingDirectory": "\\\\wsl$\\Ubuntu\\home\\rohit",
                 "colorScheme": "One Half Dark",
-                "source": "Windows.Terminal.Wsl"
+                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
             }
         ]
     }
