@@ -32,7 +32,14 @@ alias ll='ls -la'
 unset ls
 
 # Show brief directory listing on directory change
-cd() { command cd "$@" && ls; }
+# Avoid stat syscalls over NFS so (a) it stays responsive, and (b) I can tell I'm on NFS
+cd() {
+	command cd "$@" || return
+	case $(stat -fc %T .) in
+		nfs) command ls;;
+		*) ls;;
+	esac
+}
 
 # Bash doesn't recognize - as an argument for autocd
 alias -- -='cd -'

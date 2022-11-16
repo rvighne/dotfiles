@@ -74,6 +74,9 @@ set fillchars+=vert:│
 set t_SI=[5\ q t_SR=[3\ q t_EI=[1\ q
 autocmd myvimrc VimLeave * set t_me=[5\ q
 
+" If installed, use ripgrep to replace external :grep
+if executable('rg') | set grepprg=rg\ -Hn | endif
+
 " Make equalalways actually work as advertised when the terminal is resized
 autocmd myvimrc VimResized * if &equalalways | wincmd = | endif
 
@@ -146,9 +149,12 @@ nnoremap <expr> <silent> <C-p> FugitiveIsGitDir() ? ':<C-u>FugitiveFiles<CR>' : 
 " git grep without hit-enter prompt nor jumping to the first match
 nnoremap <Leader>gg :<C-u>Ggrep! -q<SPACE>
 
+" Shortcut for git blame
+nnoremap <silent> <Leader>b :<C-u>Git blame<CR>
+
 " git grep (i.e. project-wide) analog of * (word search)
-nnoremap <silent> <Leader>* :<C-u>Ggrep -q -w <cword> --<CR>
-nnoremap <silent> <Leader>g* :<C-u>Ggrep -q <cword> --<CR>
+nnoremap <silent> <Leader>* :<C-u>Ggrep -q -w -- <cword><CR>
+nnoremap <silent> <Leader>g* :<C-u>Ggrep -q -- <cword><CR>
 
 " Auto-insert closing bracket for block
 inoremap {<CR> {<CR>}<ESC>O
@@ -214,6 +220,9 @@ let g:qs_lazy_highlight = 1
 
 " traces plugin
 let g:traces_preview_window = 'new'
+
+" dispatch plugin
+let g:dispatch_handlers = ['job', 'headless']
 
 " ALE language server plugin
 let g:ale_fix_on_save = 1

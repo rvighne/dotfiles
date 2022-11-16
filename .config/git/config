@@ -32,3 +32,5 @@
 	detachedHead = no
 	addIgnoredFile = no
 	addEmptyPathspec = no
+[alias]
+	amend = commit --amend --no-edit
