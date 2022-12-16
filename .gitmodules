@@ -50,3 +50,9 @@
 [submodule ".vim/pack/plugins/start/dispatch"]
 	path = .vim/pack/plugins/start/dispatch
 	url = https://github.com/tpope/vim-dispatch.git
+[submodule ".vim/pack/plugins/start/endwise"]
+	path = .vim/pack/plugins/start/endwise
+	url = https://github.com/tpope/vim-endwise.git
+[submodule ".vim/pack/plugins/start/eunuch"]
+	path = .vim/pack/plugins/start/eunuch
+	url = https://github.com/tpope/vim-eunuch.git
