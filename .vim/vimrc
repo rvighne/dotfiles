@@ -54,10 +54,14 @@ if !has('nvim') | set ttymouse=sgr | endif
 set title belloff=all lazyredraw
 
 " Improve autocmd responsiveness and disable swap files (save often!)
-set updatetime=100 noswapfile
+set updatetime=100 directory=
 
 " Less surprising keyboard behavior
 set notimeout ttimeout ttimeoutlen=0
+
+" Create backup files in one place, not in every dir where a file is opened
+set backupdir=~/.vim/backup//
+call mkdir(&backupdir, 'p', 0700)
 
 " Persistent undo tree
 set undodir=~/.vim/undo undofile
