@@ -1,0 +1,14 @@
+#!/bin/sh -eu
+
+case ${1-} in
+	*@*) ;;
+	*) return 2;;
+esac
+
+getname() {
+	getent passwd "$USER" | cut -d: -f5 | cut -d, -f1
+}
+
+# Use ~/.gitconfig for machine-local settings
+git config -f ~/.gitconfig user.email "$1"
+git config -f ~/.gitconfig user.name  "${2:-$(getname)}"
