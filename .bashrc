@@ -62,20 +62,23 @@ alias free='free -h'
 # Show cmdline and color by start time
 alias pstree='pstree -apC age'
 
-# Atomic make-and-change-to directory
-mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
-
 # Make bc useful as interactive calculator
 alias bc='bc -ql'
+
+# Atomic make-and-change-to directory
+mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 
 # Show all my own processes (useful over SSH)
 pt() { pstree "$@" -- "$USER"; }
 
-# Generate secure random passwords
-alias pw='tr -dc \[:graph:] </dev/urandom | fold -b -w12'
+# cut -f, but treat any run of whitespace as a delimiter
+get() { tr -s '[:blank:]' '\t' | cut -f "$1"; }
 
-# Find and count unique instances of a pattern
-histogram() { LC_ALL=C command grep -oh "$@" | LC_ALL=C sort | LC_ALL=C uniq -c; }
+# Generate secure random passwords
+alias pw='tr -dc \[:graph:] </dev/urandom | fold -b -w12 | head -n'
+
+# Count unique instances of a pattern
+hist() { LC_ALL=C sort | LC_ALL=C uniq -c; }
 
 # Package maintenance on Ubuntu
 alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
@@ -85,8 +88,8 @@ gst() { find "$1" -type d -name .git -exec git --git-dir {} --work-tree {}/.. st
 
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
-alias cfg='command git --git-dir ~/.cfg.git --work-tree ~'
-alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1 && command vim -es +helptags\ ALL +q #'
+alias cfg='git --git-dir ~/.cfg.git --work-tree ~'
+alias cfg-plug='cfg submodule update --init --recursive --remote --depth 1 && (vim -es +helptags\ ALL +q || true) #'
 alias cfg-edit='GIT_DIR=~/.cfg.git "$VISUAL"'
 
 # Install configs for Windows Terminal (from WSL)
@@ -105,8 +108,8 @@ then
 	alias latexmk='winpty latexmk'
 fi
 
-# Store private or machine-local .bashrc separately
-[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc
+# Not all distros make this symlink
+alias fd=fdfind
 
 # Enable Node Version Manager if installed
 [ -d ~/.nvm ] && . ~/.nvm/nvm.sh && . ~/.nvm/bash_completion
@@ -163,6 +166,9 @@ PS1=$PS1'\[\e[32m\]\w'
 command -v __git_ps1 >/dev/null && PS1=$PS1'\[\e[36m\]$(__git_ps1)'
 # Space before command with colors reset
 PS1=$PS1'\[\e[0m\] '
+
+# Store private or machine-local .bashrc override separately
+[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc
 
 # Interactive-friendly settings; see also .inputrc
 # Should be at end of .bashrc to avoid conflicting with prior shell init code
