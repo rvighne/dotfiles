@@ -48,3 +48,6 @@ then
 fi
 
 unset env no_agent
+
+# Machine-local or private env vars
+. ~/.env

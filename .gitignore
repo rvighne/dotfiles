@@ -5,6 +5,7 @@
 # Databases
 .vim/spell
 .vim/undo
+.vim/backup
 .viminfo
 .wget-hsts
 
@@ -14,5 +15,6 @@
 *hst
 
 # Machine-local
+.env
 .vim/plugin
 .config/bash/bashrc
