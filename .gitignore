@@ -15,4 +15,4 @@
 
 # Machine-local
 .vim/plugin
-.config/bash
+.config/bash/bashrc
