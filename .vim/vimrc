@@ -80,6 +80,9 @@ if executable('rg') | set grepprg=rg\ -Hn | endif
 " Make equalalways actually work as advertised when the terminal is resized
 autocmd myvimrc VimResized * if &equalalways | wincmd = | endif
 
+" Avoid the annoyance of entering insert mode when file not writeable
+autocmd myvimrc BufRead * let &l:modifiable = !&l:readonly
+
 " Ensure text width equals window width in terminal normal mode
 autocmd myvimrc TerminalWinOpen * setlocal nonumber norelativenumber
 
@@ -213,7 +216,18 @@ cnoreabbrev man Man
 let g:netrw_banner = 0
 
 " Open links from WSL
-if executable('wslview') | let g:netrw_browsex_viewer = 'wslview' | endif
+if executable('wslview')
+	let g:netrw_browsex_viewer = 'wslview'
+endif
+
+" Simulate clipboard support on Windows or WSL
+" Using @0 since @+ and @* don't exist without +clipboard
+if !has('clipboard') && executable('clip.exe')
+	autocmd TextYankPost *
+	\	if v:event.regname == '0' || v:event.operator == 'y' && empty(v:event.regname)
+	\|		silent call system('clip.exe', getreg(v:event.regname))
+	\|	endif
+endif
 
 " quick-scope plugin
 let g:qs_lazy_highlight = 1
@@ -247,15 +261,16 @@ if &t_Co >= 16777216 | set termguicolors | endif
 filetype plugin indent on
 syntax enable
 
-" Color scheme that matches terminal (One Half Dark)
-let g:one_allow_italics = 1
-colorscheme one
-
-" Without undercurl, color must be set manually (this is orange from One Dark)
-call one#highlight('SpellBad', 'd19a66', '', '')
-call one#highlight('SpellCap', 'd19a66', '', '')
-call one#highlight('SpellLocal', 'd19a66', '', '')
-call one#highlight('SpellRare', 'd19a66', '', '')
+try
+	let g:one_allow_italics = 1
+	colorscheme one
+	" Without undercurl, color must be set manually (this is orange from One Dark)
+	call one#highlight('SpellBad', 'd19a66', '', '')
+	call one#highlight('SpellCap', 'd19a66', '', '')
+	call one#highlight('SpellLocal', 'd19a66', '', '')
+	call one#highlight('SpellRare', 'd19a66', '', '')
+catch /^Vim\%((\a\+)\)\=:E185:/
+endtry
 
 " Define fallback colors for termdebug plugin that match colorscheme
 " Must come after :colorscheme, because some of them call :highlight clear
