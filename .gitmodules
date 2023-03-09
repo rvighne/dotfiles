@@ -44,9 +44,6 @@
 [submodule ".vim/pack/plugins/start/unimpaired"]
 	path = .vim/pack/plugins/start/unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule ".vim/pack/plugins/start/traces"]
-	path = .vim/pack/plugins/start/traces
-	url = https://github.com/markonm/traces.vim.git
 [submodule ".vim/pack/plugins/start/dispatch"]
 	path = .vim/pack/plugins/start/dispatch
 	url = https://github.com/tpope/vim-dispatch.git
@@ -56,3 +53,7 @@
 [submodule ".vim/pack/plugins/start/eunuch"]
 	path = .vim/pack/plugins/start/eunuch
 	url = https://github.com/tpope/vim-eunuch.git
+[submodule ".vim/pack/plugins/start/oscyank"]
+	path = .vim/pack/plugins/start/oscyank
+	url = https://github.com/ojroques/vim-oscyank.git
+	branch = main

@@ -34,20 +34,12 @@ fzf=~/.vim/pack/plugins/start/fzf/bin
 [ -x "$fzf"/fzf ] && PATH=$fzf:$PATH
 unset fzf
 
-# Ensure that SSH agent is started and accessible
-env=~/.ssh/agent.env
-no_agent() {
+if
 	ssh-add -l >/dev/null 2>&1
 	[ $? -eq 2 ]
-}
-
-if no_agent
 then
-	[ -e "$env" ] && . "$env" >/dev/null
-	no_agent && (umask 066; exec ssh-agent -s >|"$env") && . "$env" >/dev/null
+	export SSH_AUTH_SOCK=/dev/shm/$USER.ssh-agent.sock
 fi
-
-unset env no_agent
 
 # Machine-local or private env vars
 . ~/.env

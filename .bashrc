@@ -14,7 +14,7 @@ if [ "${SSH_TTY:+x}${TMUX+y}" = x ] && tmux -V
 fi
 
 # Idempotent and machine-local parts of bashrc are stored separately
-for rc in ~/.config/bash/*bashrc; do [ -f "$rc" ] && . "$rc"; done
+for rc in ~/.config/bash/*bashrc; do if [ -O "$rc" ]; then . "$rc"; fi; done
 
 if [ ${BASH_VERSION+x} ]
 then
@@ -25,7 +25,7 @@ then
 	shopt -s checkjobs
 	shopt -s histappend
 
-	HISTTIMEFORMAT='%x %X  '
+	HISTTIMEFORMAT='%F %T  '
 	HISTCONTROL=ignoreboth:erasedups
 
 	# Make HISTFILESIZE use the default ($HISTSIZE, which we set to unlimited)

@@ -81,7 +81,7 @@ if executable('rg') | set grepprg=rg\ -Hn | endif
 autocmd myvimrc VimResized * if &equalalways | wincmd = | endif
 
 " Avoid the annoyance of entering insert mode when file not writeable
-autocmd myvimrc BufRead * let &l:modifiable = !&l:readonly
+autocmd myvimrc BufRead * if &l:readonly | setlocal nomodifiable | endif
 
 " Ensure text width equals window width in terminal normal mode
 autocmd myvimrc TerminalWinOpen * setlocal nonumber norelativenumber
@@ -135,8 +135,12 @@ tnoremap <ScrollWheelDown> <C-w>N
 tnoremap <ScrollWheelLeft> <C-w>N
 tnoremap <ScrollWheelRight> <C-w>N
 
-" Show buffer menu and prompt
+" Auto-insert closing bracket for block
+inoremap {<CR> {<CR>}<ESC>O
+
+" Better FZF versions of Vim menus :ls :jumps
 nnoremap <silent> <C-n> :<C-u>Buffers<CR>
+nnoremap <silent> <C-s> :<C-u>Jumps<CR>
 
 " Alternative to GFiles: integrate with Fugitive to work better in edge cases
 command -bang -nargs=* -complete=dir FugitiveFiles
@@ -159,11 +163,10 @@ nnoremap <silent> <Leader>b :<C-u>Git blame<CR>
 nnoremap <silent> <Leader>* :<C-u>Ggrep -q -w -- <cword><CR>
 nnoremap <silent> <Leader>g* :<C-u>Ggrep -q -- <cword><CR>
 
-" Auto-insert closing bracket for block
-inoremap {<CR> {<CR>}<ESC>O
-
-" Insert ASCII underline for headings
-nnoremap _ yypVr=o<CR>
+" Add operator for copying to terminal clipboard
+nmap <Leader>c <Plug>OSCYankOperator
+nmap <Leader>cc <Leader>c_
+vmap <Leader>c <Plug>OSCYankVisual
 
 " Linter actions
 nmap [r <Plug>(ale_previous)
@@ -220,20 +223,8 @@ if executable('wslview')
 	let g:netrw_browsex_viewer = 'wslview'
 endif
 
-" Simulate clipboard support on Windows or WSL
-" Using @0 since @+ and @* don't exist without +clipboard
-if !has('clipboard') && executable('clip.exe')
-	autocmd TextYankPost *
-	\	if v:event.regname == '0' || v:event.operator == 'y' && empty(v:event.regname)
-	\|		silent call system('clip.exe', getreg(v:event.regname))
-	\|	endif
-endif
-
 " quick-scope plugin
 let g:qs_lazy_highlight = 1
-
-" traces plugin
-let g:traces_preview_window = 'new'
 
 " dispatch plugin
 let g:dispatch_handlers = ['job', 'headless']

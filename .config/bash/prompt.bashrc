@@ -12,6 +12,8 @@ prompt_cmd() {
 	_njobs=
 	for _ in $(jobs -p); do : $((_njobs+=1)); done
 	[ $_njobs ] && _njobs="[$_njobs] "
+
+	history -a
 }
 
 # Clear gap between command output and shell prompt

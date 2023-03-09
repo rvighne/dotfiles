@@ -1,0 +1,18 @@
+#!/bin/sh -eu
+
+# Don't expand globs, only split on newlines
+# Warning: this doesn't handle filenames containing non-space whitespace, since ls-files quotes those
+set -f
+IFS='
+'
+
+case ${1:-} in
+	# Open modified and untracked files in vertical splits
+	'') exec vim -O -- $(git ls-files --modified --others --exclude-standard);;
+
+	# Open all files touched in the last commit in buffers
+	--amend) exec vim -- $(git diff-tree --no-commit-id --name-only -r HEAD);;
+
+	# Invalid command line
+	*) exit 2;;
+esac

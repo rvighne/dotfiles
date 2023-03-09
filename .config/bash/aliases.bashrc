@@ -56,6 +56,9 @@ mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 # Show all my own processes (useful over SSH)
 pt() { pstree "$@" -- "$USER"; }
 
+# Search all my own processes
+alias pg='pgrep -au "$USER"'
+
 # cut -f, but treat any run of whitespace as a delimiter
 get() { tr -s '[:blank:]' '\t' | cut -f "$1"; }
 
@@ -83,6 +86,9 @@ fi
 # Not all distros make this symlink
 alias fd=fdfind
 
+# Start ssh-agent with a known path so we don't need a .env file
+alias start_agent='ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null'
+
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
 alias cfg='git --git-dir ~/.cfg.git --work-tree ~'
@@ -92,12 +98,4 @@ alias cfg-edit='GIT_DIR=~/.cfg.git "$VISUAL"'
 cfg_plug() {
 	cfg submodule update --init --recursive --remote --depth 1 || return
 	command vim -es +'helptags ALL' +q || true
-}
-
-# Install configs for Windows Terminal Preview (from WSL)
-# Assumes ~/remote is symlinked to your Windows home directory
-cfg_wt() {
-	cp \
-		~/.config/wt/settings.json \
-		~/remote/AppData/Local/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/
 }

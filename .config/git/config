@@ -20,6 +20,7 @@
 	conflictStyle = diff3
 	tool = vimdiff
 [diff]
+	algorithm = histogram
 	colorMoved = yes
 	colorMovedWS = allow-indentation-change
 [blame]
