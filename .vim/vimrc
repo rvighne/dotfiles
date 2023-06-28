@@ -97,6 +97,10 @@ autocmd myvimrc BufReadPost *
 " Stolen from $VIMRUNTIME/defaults.vim
 inoremap <C-u> <C-g>u<C-u>
 
+" Auto-insert closing bracket for block
+inoremap {<CR> {<CR>}<Esc>O
+inoremap [<CR> [<CR>]<Esc>O
+
 " Why isn't this default
 nnoremap Y y$
 
@@ -118,29 +122,23 @@ nnoremap <silent> <BS> :<C-u>nohlsearch<CR>
 nnoremap <SPACE> <C-^>
 
 " Speedy window switching
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Speedy window switching (consistent in terminal)
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 tnoremap <C-h> <C-w>h
 tnoremap <C-j> <C-w>j
 tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
 
-" Make :terminal easier to escape by assuming there's no TUI running
-tnoremap <ScrollWheelUp> <C-w>N
-tnoremap <ScrollWheelDown> <C-w>N
-tnoremap <ScrollWheelLeft> <C-w>N
-tnoremap <ScrollWheelRight> <C-w>N
+" Make :terminal easier to escape by assuming there's no other mouse user
+tnoremap <ScrollWheelUp> <C-\><C-N>
+tnoremap <ScrollWheelDown> <C-\><C-N>
+tnoremap <ScrollWheelLeft> <C-\><C-N>
+tnoremap <ScrollWheelRight> <C-\><C-N>
 
-" Auto-insert closing bracket for block
-inoremap {<CR> {<CR>}<ESC>O
-
-" Better FZF versions of Vim menus :ls :jumps
+" Better FZF versions of Vim menus
 nnoremap <silent> <C-n> :<C-u>Buffers<CR>
-nnoremap <silent> <C-s> :<C-u>Jumps<CR>
 
 " Alternative to GFiles: integrate with Fugitive to work better in edge cases
 command -bang -nargs=* -complete=dir FugitiveFiles

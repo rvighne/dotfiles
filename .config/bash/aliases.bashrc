@@ -44,8 +44,8 @@ alias df='df -h'
 alias du='du -h'
 alias free='free -h'
 
-# Show cmdline and color by start time
-alias pstree='pstree -apC age'
+# Show full cmdline and PID in pstree
+alias pstree='pstree -ap'
 
 # Make bc useful as interactive calculator
 alias bc='bc -ql'

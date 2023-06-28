@@ -19,9 +19,9 @@ for rc in ~/.config/bash/*bashrc; do if [ -O "$rc" ]; then . "$rc"; fi; done
 if [ ${BASH_VERSION+x} ]
 then
 	# At end of .bashrc to avoid conflicting with prior shell init code
-	shopt -s autocd
-	shopt -s globstar failglob
-	shopt -s no_empty_cmd_completion direxpand
+	shopt -s autocd checkhash
+	shopt -s globstar extglob
+	shopt -s no_empty_cmd_completion histreedit
 	shopt -s checkjobs
 	shopt -s histappend
 
