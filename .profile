@@ -44,4 +44,4 @@ then
 fi
 
 # Machine-local or private env vars
-. ~/.env
+[ -O ~/.env ] && . ~/.env
