@@ -32,13 +32,6 @@ alias -- -='cd -'
 # Colors for grep; works on both GNU and BSD
 alias grep='grep --color'
 
-# Colors for diff (GNU only)
-# Use the same format as git-diff
-if diff --help 2>/dev/null | grep -q -- --color
-	then alias diff='diff -u --color'
-	else alias diff='diff -u'
-fi
-
 # Human-readable sizes in various tools
 alias df='df -h'
 alias du='du -h'
@@ -49,6 +42,9 @@ alias pstree='pstree -ap'
 
 # Make bc useful as interactive calculator
 alias bc='bc -ql'
+
+# Use same diff implementation in or out of Git repo
+alias diff='git diff --no-index --no-textconv --no-ext-diff'
 
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }

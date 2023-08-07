@@ -34,6 +34,12 @@ fzf=~/.vim/pack/plugins/start/fzf/bin
 [ -x "$fzf"/fzf ] && PATH=$fzf:$PATH
 unset fzf
 
+# Configure Git to use difftastic (AST-level diff tool)
+export DFT_PARSE_ERROR_LIMIT=32767
+export DFT_DISPLAY=side-by-side-show-both DFT_TAB_WIDTH=4
+export DFT_BACKGROUND=light DFT_SYNTAX_HIGHLIGHT=off
+command -v difft >/dev/null && export GIT_EXTERNAL_DIFF=difft
+
 if
 	ssh-add -l >/dev/null 2>&1
 	[ $? -eq 2 ]

@@ -36,6 +36,11 @@ set wildmenu
 " Look for includes in current dir, all parent dirs, and working dir
 set path=.;,,
 
+" More useful (but somewhat more expensive) diff
+if index(split(&diffopt, ','), 'internal') >= 0
+	set diffopt+=algorithm:histogram,indent-heuristic
+endif
+
 " Treat ^L as page break
 set printoptions+=formfeed:y
 

@@ -21,8 +21,10 @@
 	tool = vimdiff
 [diff]
 	algorithm = histogram
-	colorMoved = yes
+	indentHeuristic = yes
+	colorMoved = dimmed-zebra
 	colorMovedWS = allow-indentation-change
+	renameLimit = 0
 [blame]
 	date = human
 	coloring = highlightRecent
