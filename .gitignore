@@ -1,8 +1,10 @@
 # Keys
 .gnupg
-.ssh
+.ssh/id_*
+.ssh/authorized_keys*
 
 # Databases
+.ssh/known_hosts*
 .vim/spell
 .vim/undo
 .vim/backup
@@ -15,5 +17,6 @@
 
 # Machine-local
 .env
+.ssh/hosts
 .vim/plugin
 .config/bash/bashrc
