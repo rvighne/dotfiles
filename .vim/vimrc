@@ -160,7 +160,8 @@ nnoremap <expr> <silent> <C-p> FugitiveIsGitDir() ? ':<C-u>FugitiveFiles<CR>' : 
 nnoremap <Leader>gg :<C-u>Ggrep! -q<SPACE>
 
 " Shortcut for git blame
-nnoremap <silent> <Leader>b :<C-u>Git blame<CR>
+nnoremap <silent> <Leader>b :Git blame<CR>
+vnoremap <silent> <Leader>b :Git blame<CR>
 
 " git grep (i.e. project-wide) analog of * (word search)
 nnoremap <silent> <Leader>* :<C-u>Ggrep -q -w -- <cword><CR>
@@ -222,9 +223,7 @@ cnoreabbrev man Man
 let g:netrw_banner = 0
 
 " Open links from WSL
-if executable('wslview')
-	let g:netrw_browsex_viewer = 'wslview'
-endif
+if executable('wslview') | let g:netrw_browsex_viewer = 'wslview' | endif
 
 " quick-scope plugin
 let g:qs_lazy_highlight = 1

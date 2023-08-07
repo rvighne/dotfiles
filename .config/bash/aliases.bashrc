@@ -32,6 +32,9 @@ alias -- -='cd -'
 # Colors for grep; works on both GNU and BSD
 alias grep='grep --color'
 
+# Colors and human-readable sizes for iproute2
+alias ip='ip -color=auto -h'
+
 # Human-readable sizes in various tools
 alias df='df -h'
 alias du='du -h'
@@ -45,6 +48,9 @@ alias bc='bc -ql'
 
 # Use same diff implementation in or out of Git repo
 alias diff='git diff --no-index --no-textconv --no-ext-diff'
+
+# Use BFS (faster, interactive-friendly superset of find) if available
+command -v bfs >/dev/null && alias find='bfs'
 
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }

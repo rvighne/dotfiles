@@ -13,4 +13,4 @@ if ! git diff --quiet; then
 fi
 
 script=$(printf 's\001%s\001%s\001g' "$1" "$2")
-git grep -zlE -- "$1" | xargs -0 sed -iE -- "$script" && git diff
+git grep -zlE -- "$1" | xargs -0 sed -i -E -- "$script" && git diff

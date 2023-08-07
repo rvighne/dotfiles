@@ -11,6 +11,8 @@
 [fetch]
 	parallel = 0
 [rebase]
+	autoSquash = yes
+	autoStash = yes
 	missingCommitsCheck = error
 [interactive]
 	singleKey = yes
