@@ -1,35 +1,15 @@
-# Type indicators and human-readable sizes in ls
-ls='ls -hF'
-
-# Terminal colors on both GNU and BSD
-if ls --help 2>/dev/null | grep -q -- --color
-	then ls="$ls --color=auto"
-	else ls="$ls -G"
-fi
-
-# Hide registry hive files on Windows
-[ -f ~/NTUSER.DAT ] && ls="$ls -I NTUSER.DAT\\*"
-
-# Common ls shortcuts
-alias ls="$ls"
+# Colors, type indicators, and human-readable sizes in ls
+alias ls='ls --color=auto -hF'
 alias la='ls -A'
 alias ll='ls -la'
-unset ls
 
 # Show brief directory listing on directory change
-# Avoid stat syscalls over NFS so (a) it stays responsive, and (b) I can tell I'm on NFS
-cd() {
+command -v timeout >/dev/null && cd() {
 	command cd "$@" || return
-	case $(stat -fc %T .) in
-		nfs) command ls;;
-		*) ls;;
-	esac
+	timeout .025s ls --color=auto -hF || true
 }
 
-# Bash doesn't recognize - as an argument for autocd
-alias -- -='cd -'
-
-# Colors for grep; works on both GNU and BSD
+# Colors for grep
 alias grep='grep --color'
 
 # Colors and human-readable sizes for iproute2
@@ -64,29 +44,8 @@ alias pg='pgrep -au "$USER"'
 # cut -f, but treat any run of whitespace as a delimiter
 get() { tr -s '[:blank:]' '\t' | cut -f "$1"; }
 
-# Generate secure random passwords
-alias pw='tr -dc \[:graph:] </dev/urandom | fold -b -w12 | head -n'
-
-# Count unique instances of a pattern
-hist() { LC_ALL=C sort | LC_ALL=C uniq -c; }
-
 # Package maintenance on Ubuntu
 alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
-
-# Check status of all Git repos
-gst() { find "$1" -type d -name .git -exec git --git-dir {} --work-tree {}/.. status \;; }
-
-# Make TUI programs work on Windows
-if command -v winpty >/dev/null
-then
-	alias pp='pipenv run winpty python'
-	alias python='winpty python'
-	alias stack='winpty stack'
-	alias latexmk='winpty latexmk'
-fi
-
-# Not all distros make this symlink
-alias fd=fdfind
 
 # Start ssh-agent with a known path so we don't need a .env file
 alias start_agent='ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null'

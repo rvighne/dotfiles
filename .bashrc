@@ -16,6 +16,9 @@ fi
 # Idempotent and machine-local parts of bashrc are stored separately
 for rc in ~/.config/bash/*bashrc; do if [ -O "$rc" ]; then . "$rc"; fi; done
 
+# Integrate fzf with bash (e.g. for history search) if installed
+command -v fzf >/dev/null && . ~/.vim/pack/plugins/start/fzf/shell/key-bindings.bash
+
 if [ ${BASH_VERSION+x} ]
 then
 	# At end of .bashrc to avoid conflicting with prior shell init code
@@ -24,6 +27,9 @@ then
 	shopt -s no_empty_cmd_completion histreedit
 	shopt -s checkjobs
 	shopt -s histappend
+
+	# Bash doesn't recognize - as an argument for autocd
+	alias -- -='cd -'
 
 	HISTTIMEFORMAT='%F %T  '
 	HISTCONTROL=ignoreboth:erasedups

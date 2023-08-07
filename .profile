@@ -2,7 +2,7 @@
 export LANG=en_US.UTF-8
 
 # Personal scripts and built from source programs
-export PATH=~/bin:~/.local/bin:$PATH
+export PATH=~/bin:~/.local/bin:~/.vim/pack/plugins/start/fzf/bin:$PATH
 
 # Set default editor to Vim or similar
 # E.g. used by tmux to determine keybindings
@@ -29,17 +29,13 @@ command -v dircolors >/dev/null && eval "$(dircolors -b)"
 # Use input filter for less if lesspipe is available
 command -v lesspipe >/dev/null && eval "$(lesspipe)"
 
-# Use Vim plugin-local fzf globally if installed
-fzf=~/.vim/pack/plugins/start/fzf/bin
-[ -x "$fzf"/fzf ] && PATH=$fzf:$PATH
-unset fzf
-
 # Configure Git to use difftastic (AST-level diff tool)
 export DFT_PARSE_ERROR_LIMIT=32767
 export DFT_DISPLAY=side-by-side-show-both DFT_TAB_WIDTH=4
 export DFT_BACKGROUND=light DFT_SYNTAX_HIGHLIGHT=off
 command -v difft >/dev/null && export GIT_EXTERNAL_DIFF=difft
 
+# Connect to ssh-agent at a known path if no agent was forwarded
 if
 	ssh-add -l >/dev/null 2>&1
 	[ $? -eq 2 ]
