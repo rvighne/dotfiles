@@ -1,5 +1,5 @@
 set renderoptions=type:directx
-set guifont=Fira\ Code\ Retina:h11
-set guioptions=
-set lines=25 columns=100
+set guifont=JetBrains\ Mono:h10
+set guioptions=!g
+if &background ==? 'dark' | set guioptions+=d | endif
 set scrollfocus
