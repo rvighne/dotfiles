@@ -7,7 +7,6 @@
 .ssh/known_hosts*
 .vim/spell
 .vim/undo
-.vim/backup
 .viminfo
 .wget-hsts
 
@@ -18,5 +17,4 @@
 # Machine-local
 .env
 .ssh/hosts
-.vim/plugin
 .config/bash/bashrc

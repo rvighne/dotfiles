@@ -64,10 +64,6 @@ set updatetime=100 directory=
 " Less surprising keyboard behavior
 set notimeout ttimeout ttimeoutlen=0
 
-" Create backup files in one place, not in every dir where a file is opened
-set backupdir=~/.vim/backup//
-call mkdir(&backupdir, 'p', 0700)
-
 " Persistent undo tree
 set undodir=~/.vim/undo undofile
 call mkdir(&undodir, 'p', 0700)
@@ -80,7 +76,7 @@ set t_SI=[5\ q t_SR=[3\ q t_EI=[1\ q
 autocmd myvimrc VimLeave * set t_me=[5\ q
 
 " If installed, use ripgrep to replace external :grep
-if executable('rg') | set grepprg=rg\ -Hn | endif
+if executable('rg') | set grepprg=rg\ --vimgrep | endif
 
 " Make equalalways actually work as advertised when the terminal is resized
 autocmd myvimrc VimResized * if &equalalways | wincmd = | endif
@@ -109,6 +105,11 @@ inoremap [<CR> [<CR>]<Esc>O
 " Why isn't this default
 nnoremap Y y$
 
+" Avoid getting stuck in ex mode by fat-fingering
+" Stolen from $VIMRUNTIME/defaults.vim
+noremap Q gq
+sunmap Q
+
 " Shift-less command mode
 noremap ; :
 tnoremap <C-w>; <C-w>:
@@ -121,7 +122,7 @@ cnoremap <C-n> <Down>
 nnoremap <silent> , :<C-u>update<CR>
 
 " Quick hide search result highlighting
-nnoremap <silent> <BS> :<C-u>nohlsearch<CR>
+noremap <expr> <BS> execute('nohlsearch')
 
 " Speedy buffer switching
 nnoremap <SPACE> <C-^>
@@ -147,11 +148,11 @@ nnoremap <silent> <C-n> :<C-u>Buffers<CR>
 
 " Alternative to GFiles: integrate with Fugitive to work better in edge cases
 command -bang -nargs=* -complete=dir FugitiveFiles
-\	call fzf#run(fzf#wrap('gfiles', fzf#vim#with_preview({
-\		'source': FugitiveShellCommand('--no-literal-pathspecs', 'ls-files', '-z', '--', <f-args>),
-\		'options': '--read0 --multi --no-clear --prompt=' . shellescape('FugitiveFiles> '),
-\		'dir': FugitiveWorkTree(),
-\	}), <bang>0))
+\  call fzf#run(fzf#wrap('gfiles', fzf#vim#with_preview(#{
+\      source: FugitiveShellCommand('--no-literal-pathspecs', 'ls-files', '-z', '--', <f-args>),
+\      options: '--read0 --multi --no-clear --prompt=' . shellescape('FugitiveFiles> '),
+\      dir: FugitiveWorkTree(),
+\  }), <bang>v:false))
 
 " FZF in the current project (Git repo if present, otherwise whole directory)
 nnoremap <expr> <silent> <C-p> FugitiveIsGitDir() ? ':<C-u>FugitiveFiles<CR>' : ':<C-u>Files<CR>'
@@ -160,8 +161,7 @@ nnoremap <expr> <silent> <C-p> FugitiveIsGitDir() ? ':<C-u>FugitiveFiles<CR>' : 
 nnoremap <Leader>gg :<C-u>Ggrep! -q<SPACE>
 
 " Shortcut for git blame
-nnoremap <silent> <Leader>b :Git blame<CR>
-vnoremap <silent> <Leader>b :Git blame<CR>
+noremap <silent> <Leader>b :Git blame<CR>
 
 " git grep (i.e. project-wide) analog of * (word search)
 nnoremap <silent> <Leader>* :<C-u>Ggrep -q -w -- <cword><CR>
@@ -213,23 +213,15 @@ packadd! cfilter
 packadd! matchit
 
 " Enhance manpage integration using the builtin man ftplugin
-let g:ft_man_no_sect_fallback = 1
+let g:ft_man_no_sect_fallback = v:true
 source $VIMRUNTIME/ftplugin/man.vim
 set keywordprg=:Man
 cnoreabbrev man Man
 
-" Don't need vinegar.vim for this :)
-" Also helps to use :Explore rather than :e
-let g:netrw_banner = 0
-
-" Open links from WSL
-if executable('wslview') | let g:netrw_browsex_viewer = 'wslview' | endif
-
-" quick-scope plugin
-let g:qs_lazy_highlight = 1
-
-" dispatch plugin
-let g:dispatch_handlers = ['job', 'headless']
+" Builtin plugins
+let g:netrw_banner = v:false
+let g:termdebug_use_prompt = v:true
+let g:termdebug_wide = 1
 
 " ALE language server plugin
 let g:ale_fix_on_save = 1
@@ -237,6 +229,10 @@ let g:ale_lsp_suggestions = 1
 let g:ale_completion_enabled = 1
 let g:ale_set_balloons = 'hover'
 let g:ale_echo_msg_format = '(%linter%) %code: %%s'
+
+" HighlightedYank plugin
+let g:highlightedyank_highlight_in_visual = v:false
+let g:highlightedyank_highlight_duration = 125
 
 " Extend Vim's built-in output code detection for 24-bit color
 if empty(&t_8f) && empty(&t_8b)
@@ -255,7 +251,7 @@ filetype plugin indent on
 syntax enable
 
 try
-	let g:one_allow_italics = 1
+	let g:one_allow_italics = v:true
 	colorscheme one
 	" Without undercurl, color must be set manually (this is orange from One Dark)
 	call one#highlight('SpellBad', 'd19a66', '', '')
@@ -270,3 +266,6 @@ endtry
 " Must come before :packadd termdebug, else those (ugly) colors take priority
 highlight default link debugPC QuickFixLine
 highlight default link debugBreakpoint Debug
+
+" Make HighlightedYank use same color as 'hlsearch', rather than 'incsearch'
+highlight default link HighlightedyankRegion Search

@@ -14,7 +14,8 @@ export LESS=-iRx4
 
 # Use Vim to show manpages (with hyperlinks and colors)
 # manpager.vim has a bug where it forgets to reset 'modifiable'
-export MANPAGER='vim +MANPAGER +setlocal\ nomodifiable --not-a-term -'
+command -v vim >/dev/null && \
+	export MANPAGER='vim +MANPAGER +setlocal\ nomodifiable --not-a-term -'
 
 # Use ripgrep to speed up FZF and ease searching Git repos
 command -v rg >/dev/null && export FZF_DEFAULT_COMMAND='rg --files'

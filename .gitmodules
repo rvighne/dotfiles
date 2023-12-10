@@ -58,3 +58,17 @@
 	path = .vim/pack/plugins/start/oscyank
 	url = https://github.com/ojroques/vim-oscyank.git
 	branch = main
+[submodule ".vim/pack/plugins/start/copilot"]
+	path = .vim/pack/plugins/start/copilot
+	url = https://github.com/github/copilot.vim.git
+	branch = release
+[submodule ".vim/pack/plugins/start/cpp-modern"]
+	path = .vim/pack/plugins/start/cpp-modern
+	url = https://github.com/bfrg/vim-cpp-modern.git
+[submodule ".vim/pack/plugins/start/linediff"]
+	path = .vim/pack/plugins/start/linediff
+	url = https://github.com/AndrewRadev/linediff.vim.git
+	branch = main
+[submodule ".vim/pack/plugins/start/highlightedyank"]
+	path = .vim/pack/plugins/start/highlightedyank
+	url = https://github.com/machakann/vim-highlightedyank.git

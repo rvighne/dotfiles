@@ -32,6 +32,8 @@
 	coloring = highlightRecent
 [core]
 	pager = less -FR
+[init]
+	defaultBranch = master
 [advice]
 	statusHints = no
 	detachedHead = no
