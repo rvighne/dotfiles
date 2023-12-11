@@ -4,7 +4,7 @@ My \*nix configuration files. They are heavily commented, so please see the sour
 
 ## Goals
 
-I try to keep these dotfiles as portable as possible. Typically my main machine is either macOS with Homebrew or Windows with the MSYS2 Git distro (a fairly complete GNU environment). At the same time, most of my work is done remotely on GNU/Linux or FreeBSD machines, and I want these configs to work there sans modification.
+I try to keep these dotfiles as portable as possible. They should work with minimal or zero machine-specific overrides on my work network (Debian with `$HOME` on NFS), work machine (macOS with Homebrew), home server (FreeBSD), and home PC (Windows 10).
 
 ## Usage
 
@@ -22,4 +22,8 @@ Then, I highly recommended hiding untracked files (i.e. most of your home direct
 	cfg config status.showUntrackedFiles no
 	cfg config diff.ignoreSubmodules all
 	cfg config core.worktree ~
-	cfg-plug
+	cfg_plug
+
+## Overrides
+
+Some files (see `~/.gitignore`) are not meant to be checked in and serve as machine-local overrides for other dotfiles that are. Most optional components are auto-detected and enabled, but others must be configured here due to unmaintainable inter-distro differences. For example, to set up FZF, source the OS package's `key-bindings.bash` from `~/.config/bash/bashrc`, and symlink the Vim plugin to `~/.vim/pack/trial/fzf`. The same may be required for `git-prompt.sh` on some distros.

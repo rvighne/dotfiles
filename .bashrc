@@ -74,9 +74,6 @@ cfg_plug() {
 	command vim -es +'helptags ALL' +q || true
 }
 
-# Integrate fzf with bash (e.g. for history search) if installed
-command -v fzf >/dev/null && . ~/.vim/pack/plugins/start/fzf/shell/key-bindings.bash
-
 # Set variables used as prompt segments by PS1
 # Called often, so avoid external commands and minimize subshells
 PROMPT_COMMAND=prompt_cmd

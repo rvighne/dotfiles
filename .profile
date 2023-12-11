@@ -2,7 +2,7 @@
 export LANG=en_US.UTF-8
 
 # Personal scripts and built from source programs
-export PATH=~/bin:~/.local/bin:~/.vim/pack/plugins/start/fzf/bin:$PATH
+export PATH=~/bin:~/.local/bin:$PATH
 
 # Set default editor to Vim or similar
 # E.g. used by tmux to determine keybindings

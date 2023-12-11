@@ -18,3 +18,4 @@
 .env
 .ssh/hosts
 .config/bash/bashrc
+.vim/pack/trial
