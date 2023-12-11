@@ -6,6 +6,7 @@
 	showPatch = yes
 [grep]
 	lineNumber = yes
+	extendedRegexp = yes
 [pull]
 	ff = only
 [fetch]
@@ -24,7 +25,7 @@
 [diff]
 	algorithm = histogram
 	indentHeuristic = yes
-	colorMoved = dimmed-zebra
+	colorMoved = yes
 	colorMovedWS = allow-indentation-change
 	renameLimit = 0
 [blame]

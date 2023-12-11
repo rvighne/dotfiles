@@ -30,11 +30,10 @@ command -v dircolors >/dev/null && eval "$(dircolors -b)"
 # Use input filter for less if lesspipe is available
 command -v lesspipe >/dev/null && eval "$(lesspipe)"
 
-# Configure Git to use difftastic (AST-level diff tool)
+# Configure difftastic (AST-level diff tool)
 export DFT_PARSE_ERROR_LIMIT=32767
 export DFT_DISPLAY=side-by-side-show-both DFT_TAB_WIDTH=4
 export DFT_BACKGROUND=light DFT_SYNTAX_HIGHLIGHT=off
-command -v difft >/dev/null && export GIT_EXTERNAL_DIFF=difft
 
 # Connect to ssh-agent at a known path if no agent was forwarded
 if

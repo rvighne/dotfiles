@@ -24,9 +24,6 @@ command -v timeout >/dev/null && cd() {
 	timeout .025s ls --color=auto -hF || true
 }
 
-# Colors for grep
-alias grep='grep --color'
-
 # Colors and human-readable sizes for iproute2
 alias ip='ip -color=auto -h'
 
@@ -38,11 +35,9 @@ alias free='free -h'
 # Show full cmdline and PID in pstree
 alias pstree='pstree -ap'
 
-# Make bc useful as interactive calculator
-alias bc='bc -ql'
-
-# Use same diff implementation in or out of Git repo
+# Use same diff and grep implementations in or out of Git repo
 alias diff='git diff --no-index --no-textconv --no-ext-diff'
+alias grep='git grep --no-index --no-recursive'
 
 # Use BFS (faster, interactive-friendly superset of find) if available
 command -v bfs >/dev/null && alias find='bfs'
@@ -64,6 +59,9 @@ alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
 
 # Start ssh-agent with a known path so we don't need a .env file
 alias start_agent='ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null'
+
+# Git, but use difftastic instead of internal diff whenever possible
+mgit() { git -c diff.external=difft "$@" --ext-diff; }
 
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
