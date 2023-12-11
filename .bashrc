@@ -95,11 +95,14 @@ prompt_cmd() {
 	history -a
 }
 
-# Clear gap between command output and shell prompt
-PS1='\n'
+# Empty line and ring bell (used by tmux) after each command
+PS1='\a\n'
 
 # Set title to basename of current directory
 case $TERM in xterm*) PS1=$PS1'\[\e];\W\a\]';; esac
+
+# Timestamp of the last command completion in dim text
+PS1=$PS1'\[\e[2m\]\t\[\e[22m\] '
 
 # Error code or signal name in red
 PS1=$PS1'\[\e[31m\]$_lstst'
