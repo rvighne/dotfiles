@@ -124,9 +124,6 @@ nnoremap <silent> , :<C-u>update<CR>
 " Quick hide search result highlighting
 noremap <expr> <BS> execute('nohlsearch')
 
-" Speedy buffer switching
-nnoremap <SPACE> <C-^>
-
 " Speedy window switching
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -172,43 +169,51 @@ nmap <Leader>c <Plug>OSCYankOperator
 nmap <Leader>cc <Leader>c_
 vmap <Leader>c <Plug>OSCYankVisual
 
-" Linter actions
+" unimpaired.vim-style mappings for diagnostics
 nmap [r <Plug>(ale_previous)
 nmap ]r <Plug>(ale_next)
 nmap [R <Plug>(ale_first)
 nmap ]R <Plug>(ale_last)
 
-" Missing <Plug> mappings for ALE
-nnoremap <silent> <Plug>(ale_find_references_quickfix) :<C-u>ALEFindReferences -quickfix \| cwindow<CR>
-vnoremap <silent> <Plug>(ale_code_action) :ALECodeAction<CR>
-nnoremap <silent> <Plug>(ale_organize_imports) :<C-u>ALEOrganizeImports<CR>
+" Load LSP plugin incompatible with Vim8 and Neovim
+if has('vim9script')
+	packadd! lsp
 
-" IDE actions
-autocmd myvimrc User ALELSPStarted call s:ALELSPStarted()
-function s:ALELSPStarted()
-	nmap <buffer> K <Plug>(ale_hover)
-	nmap <buffer> gK <Plug>(ale_documentation)
-	nmap <buffer> <C-]> <Plug>(ale_go_to_definition)
-	nmap <buffer> <C-w>] <C-w><C-]>
-	nmap <buffer> <C-w><C-]> <Plug>(ale_go_to_definition_in_vsplit)
-	nmap <buffer> g<C-]> <Plug>(ale_go_to_type_definition)
-	nmap <buffer> <C-w>g] <C-w>g<C-]>
-	nmap <buffer> <C-w>g<C-]> <Plug>(ale_go_to_type_definition_in_vsplit)
-	nmap <buffer> - <Plug>(ale_find_references_quickfix)
-	nmap <buffer> + <Plug>(ale_code_action)
-	vmap <buffer> + <Plug>(ale_code_action)
-	nmap <buffer> <F2> <Plug>(ale_rename)
-	nmap <buffer> <S-F2> <Plug>(ale_file_rename)
-	nmap <buffer> <Leader>i <Plug>(ale_import)
-	nmap <buffer> <Leader>I <Plug>(ale_organize_imports)
-	setlocal omnifunc=ale#completion#OmniFunc
+	autocmd myvimrc VimEnter * call LspOptionsSet(#{
+	\	aleSupport: v:true,
+	\	outlineOnRight: &splitright,
+	\	outlineWinSize: 40,
+	\	useQuickfixForLocations: v:true,
+	\})
+
+	" Commands to jump to other locations
+	nnoremap <SPACE> <Cmd>LspSwitchSourceHeader<CR>
+	nnoremap <C-s> <Cmd>LspSymbolSearch<CR>
+	nnoremap <bar> <Cmd>LspDocumentSymbol<CR>
+
+	" Commands to query current symbol
+	nnoremap g< <Cmd>LspSuperTypeHierarchy<CR>
+	nnoremap g> <Cmd>LspSubTypeHierarchy<CR>
+	nnoremap - <Cmd>LspShowReferences<CR>
+
+	" Refactoring commands
+	nnoremap <F2> :<C-u>LspRename<SPACE>
+	noremap + <Cmd>LspCodeAction<CR>
+
+	" Visual mode "text objects"
+	vnoremap + <Cmd>LspSelectionExpand<CR>
+	vnoremap - <Cmd>LspSelectionShrink<CR>
+endif
+
+" Integrate LSP with Vim builtin features
+autocmd myvimrc User LspAttached call s:LspAttached()
+function s:LspAttached()
+	setlocal keywordprg=:LspHover
+	setlocal tagfunc=lsp#lsp#TagFunc
+	setlocal formatexpr=lsp#lsp#FormatExpr()
 endfunction
 
-" IDE actions (project-wide)
-nnoremap <Leader>s :<C-u>ALESymbolSearch -relative<SPACE>
-nmap <Leader><Leader>s <Plug>(ale_repeat_selection)
-
-" Useful built-in plugins
+" Enable plugins distributed with Vim
 packadd! cfilter
 packadd! matchit
 
@@ -224,11 +229,13 @@ let g:termdebug_use_prompt = v:true
 let g:termdebug_wide = 1
 
 " ALE language server plugin
-let g:ale_fix_on_save = 1
-let g:ale_lsp_suggestions = 1
-let g:ale_completion_enabled = 1
-let g:ale_set_balloons = 'hover'
+let g:ale_disable_lsp = v:true
+let g:ale_fix_on_save = v:true
 let g:ale_echo_msg_format = '(%linter%) %code: %%s'
+
+" GitGutter plugin
+let g:gitgutter_grep = split(&grepprg)[0]
+let g:gitgutter_preview_win_floating = v:true
 
 " HighlightedYank plugin
 let g:highlightedyank_highlight_in_visual = v:false

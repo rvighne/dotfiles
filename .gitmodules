@@ -59,6 +59,10 @@
 	path = .vim/pack/plugins/start/copilot
 	url = https://github.com/github/copilot.vim.git
 	branch = release
+[submodule ".vim/pack/plugins/opt/lsp"]
+	path = .vim/pack/plugins/opt/lsp
+	url = https://github.com/yegappan/lsp.git
+	branch = main
 [submodule ".vim/pack/plugins/start/cpp-modern"]
 	path = .vim/pack/plugins/start/cpp-modern
 	url = https://github.com/bfrg/vim-cpp-modern.git
