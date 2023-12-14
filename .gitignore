@@ -2,6 +2,7 @@
 .gnupg
 .ssh/id_*
 .ssh/authorized_keys*
+.config/github-copilot
 
 # Databases
 .ssh/known_hosts*

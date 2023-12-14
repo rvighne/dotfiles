@@ -56,7 +56,7 @@
 	url = https://github.com/ojroques/vim-oscyank.git
 	branch = main
 [submodule ".vim/pack/plugins/start/copilot"]
-	path = .vim/pack/plugins/start/copilot
+	path = .vim/pack/plugins/opt/copilot
 	url = https://github.com/github/copilot.vim.git
 	branch = release
 [submodule ".vim/pack/plugins/opt/lsp"]
