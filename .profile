@@ -35,6 +35,9 @@ export DFT_PARSE_ERROR_LIMIT=32767
 export DFT_DISPLAY=side-by-side-show-both DFT_TAB_WIDTH=4
 export DFT_BACKGROUND=light DFT_SYNTAX_HIGHLIGHT=off
 
+# Disable -M (monitoring port) in favor of ServerAliveInterval
+export AUTOSSH_PORT=0
+
 # Connect to ssh-agent at a known path if no agent was forwarded
 if
 	ssh-add -l >/dev/null 2>&1
