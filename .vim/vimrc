@@ -25,7 +25,7 @@ set completeopt=menuone,popup
 set backspace=indent,eol
 
 " Formatting
-set spellcapcheck=
+set spellcapcheck= spelloptions+=camel
 set autoindent shiftwidth=0 tabstop=4
 set formatoptions+=j
 
@@ -47,9 +47,6 @@ set printoptions+=formfeed:y
 " Make the fallback color scheme dark instead of light
 " Neovim lacks background color detection, but it defaults to dark anyway
 if !has('nvim') && empty(v:termrbgresp) | set background=dark | endif
-
-" No undercurl in Windows Terminal or iTerm2, so fallback to underline
-set t_Cs=
 
 " More traditional mouse behavior (click-drag, menus)
 set mouse=a mousemodel=popup_setpos
@@ -261,10 +258,10 @@ try
 	let g:one_allow_italics = v:true
 	colorscheme one
 	" Without undercurl, color must be set manually (this is orange from One Dark)
-	call one#highlight('SpellBad', 'd19a66', '', '')
-	call one#highlight('SpellCap', 'd19a66', '', '')
-	call one#highlight('SpellLocal', 'd19a66', '', '')
-	call one#highlight('SpellRare', 'd19a66', '', '')
+	highlight clear SpellBad   | call one#highlight('SpellBad', 'd19a66', '', 'underline')
+	highlight clear SpellCap   | highlight default link SpellCap SpellBad
+	highlight clear SpellLocal | highlight default link SpellLocal SpellBad
+	highlight clear SpellRare  | highlight default link SpellRare SpellBad
 catch /^Vim\%((\a\+)\)\=:E185:/
 endtry
 
@@ -276,3 +273,6 @@ highlight default link debugBreakpoint Debug
 
 " Make HighlightedYank use same color as 'hlsearch', rather than 'incsearch'
 highlight default link HighlightedyankRegion Search
+
+" Avoid highlighting nearly all the text in a crontab file
+highlight default link crontabCmd Normal
