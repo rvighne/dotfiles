@@ -10,6 +10,7 @@
 .vim/undo
 .viminfo
 .wget-hsts
+.cache
 
 # Readline
 *hist*
@@ -20,3 +21,4 @@
 .ssh/hosts
 .config/bash/bashrc
 .vim/pack/trial
+.gitconfig

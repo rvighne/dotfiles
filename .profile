@@ -1,5 +1,7 @@
-# C locale causes encoding issues in Vim
-export LANG=en_US.UTF-8
+# Speed up locale-aware tools (e.g. sort) since C locale is English anyway.
+# Specify encoding so that some programs (e.g. Vim) are Unicode aware.
+# It's the only "locale" supported by musl anyway, and is the same as POSIX.
+export LANG=C.UTF-8
 
 # Personal scripts and built from source programs
 export PATH=~/bin:~/.local/bin:$PATH

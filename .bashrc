@@ -32,8 +32,9 @@ alias df='df -h'
 alias du='du -h'
 alias free='free -h'
 
-# Show full cmdline and PID in pstree
-alias pstree='pstree -ap'
+# Show maximum usable info about processes and not threads
+# Force -U (unicode drawing) so paging to less works
+alias pstree='pstree -UapTSu'
 
 # Use same diff and grep implementations in or out of Git repo
 alias diff='git diff --no-index --no-textconv --no-ext-diff'
@@ -54,6 +55,10 @@ alias pg='pgrep -au "$USER"'
 # cut -f, but treat any run of whitespace as a delimiter
 get() { tr -s '[:blank:]' '\t' | cut -f "$1"; }
 
+# Histogram for input lines treated as discrete values
+# i.e. a version of `sort | uniq -c | sort -n` that doesn't buffer the whole input
+hist() { awk '{++count[$0]} END {for (x in count) print count[x], x }' | sort -n; }
+
 # Package maintenance on Ubuntu
 alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
 
@@ -61,7 +66,10 @@ alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
 alias start_agent='ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null'
 
 # Git, but use difftastic instead of internal diff whenever possible
-mgit() { git -c diff.external=difft "$@" --ext-diff; }
+mgit() {
+	local cmd="$1"; shift
+	git -c diff.external=difft "$cmd" --ext-diff "$@"
+}
 
 # Git for the dotfiles repo
 # Warning: does NOT protect against git-clean
@@ -70,8 +78,10 @@ alias cfg-edit='GIT_DIR=~/.cfg.git "$VISUAL"'
 
 # Fetch Vim plugins and rebuild helptags
 cfg_plug() {
-	cfg submodule update --init --recursive --remote --depth 1 || return
-	command vim -es +'helptags ALL' +q || true
+	cfg submodule update --init --recursive --remote --depth 1
+	local st=$?
+	command vim -es +'helptags ALL' +q
+	return $st
 }
 
 # Set variables used as prompt segments by PS1

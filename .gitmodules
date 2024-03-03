@@ -29,9 +29,6 @@
 [submodule ".vim/pack/plugins/start/vimtex"]
 	path = .vim/pack/plugins/start/vimtex
 	url = https://github.com/lervag/vimtex.git
-[submodule ".vim/pack/plugins/start/sleuth"]
-	path = .vim/pack/plugins/start/sleuth
-	url = https://github.com/tpope/vim-sleuth.git
 [submodule ".vim/pack/plugins/start/numbertoggle"]
 	path = .vim/pack/plugins/start/numbertoggle
 	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git

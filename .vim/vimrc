@@ -7,6 +7,7 @@ augroup myvimrc | autocmd! | augroup END
 " Window/buffer options
 set hidden
 set laststatus=2 ruler showcmd
+if exists('+showcmdloc') | set showcmdloc=statusline | endif
 set splitbelow splitright
 set number relativenumber
 set colorcolumn=+1
@@ -30,7 +31,6 @@ set autoindent shiftwidth=0 tabstop=4
 set formatoptions+=j
 
 " Command mode
-set history=1000
 set wildmenu
 
 " Look for includes in current dir, all parent dirs, and working dir
@@ -64,6 +64,9 @@ set notimeout ttimeout ttimeoutlen=0
 " Persistent undo tree
 set undodir=~/.vim/undo undofile
 call mkdir(&undodir, 'p', 0700)
+
+" Maximize sizes of viminfo lists (including :oldfiles)
+set history=10000 viminfo='10000,s10,h
 
 " Continuous pane boundary
 set fillchars+=vert:│
@@ -111,10 +114,6 @@ sunmap Q
 noremap ; :
 tnoremap <C-w>; <C-w>:
 
-" More consistent history navigation
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-
 " Quick save file without messing up timestamp
 nnoremap <silent> , :<C-u>update<CR>
 
@@ -137,14 +136,18 @@ tnoremap <ScrollWheelDown> <C-\><C-N>
 tnoremap <ScrollWheelLeft> <C-\><C-N>
 tnoremap <ScrollWheelRight> <C-\><C-N>
 
+" Follow tags in vertical split instead of horizontal
+noremap <C-w>] <C-w>v<C-]>
+
 " Better FZF versions of Vim menus
 nnoremap <silent> <C-n> :<C-u>Buffers<CR>
+nnoremap <silent> <C-q> :<C-u>History<CR>
 
 " Alternative to GFiles: integrate with Fugitive to work better in edge cases
 command -bang -nargs=* -complete=dir FugitiveFiles
 \  call fzf#run(fzf#wrap('gfiles', fzf#vim#with_preview(#{
 \      source: FugitiveShellCommand('--no-literal-pathspecs', 'ls-files', '-z', '--', <f-args>),
-\      options: '--read0 --multi --no-clear --prompt=' . shellescape('FugitiveFiles> '),
+\      options: '--read0 --tiebreak=end,length,index --multi --no-clear --prompt=' . shellescape('FugitiveFiles> '),
 \      dir: FugitiveWorkTree(),
 \  }), <bang>v:false))
 
@@ -154,17 +157,29 @@ nnoremap <expr> <silent> <C-p> FugitiveIsGitDir() ? ':<C-u>FugitiveFiles<CR>' : 
 " git grep without hit-enter prompt nor jumping to the first match
 nnoremap <Leader>gg :<C-u>Ggrep! -q<SPACE>
 
-" Shortcut for git blame
-noremap <silent> <Leader>b :Git blame<CR>
-
 " git grep (i.e. project-wide) analog of * (word search)
 nnoremap <silent> <Leader>* :<C-u>Ggrep -q -w -- <cword><CR>
 nnoremap <silent> <Leader>g* :<C-u>Ggrep -q -- <cword><CR>
+
+" Shortcut for git blame
+noremap <silent> <Leader>b :Git blame -wM<CR>
+
+" Print permalink to current line(s)
+noremap <silent> <Leader>f :.GBrowse!<CR>
 
 " Add operator for copying to terminal clipboard
 nmap <Leader>c <Plug>OSCYankOperator
 nmap <Leader>cc <Leader>c_
 vmap <Leader>c <Plug>OSCYankVisual
+
+" dispatch.vim: ensure only one foreground build runs at a time
+autocmd myvimrc VimEnter * call s:OverrideDispatchMaps()
+function s:OverrideDispatchMaps()
+	if exists(':Make') < 2 | return | endif
+	cnoreabbrev Make AbortDispatch <bar> Make
+	nmap <silent> m<CR> :<C-u>Make<CR>
+	nmap m<SPACE> :<C-u>Make<SPACE>
+endfunction
 
 " unimpaired.vim-style mappings for diagnostics
 nmap [r <Plug>(ale_previous)
@@ -197,6 +212,9 @@ if has('vim9script')
 	nnoremap <F2> :<C-u>LspRename<SPACE>
 	noremap + <Cmd>LspCodeAction<CR>
 
+	" Create the (global) outline window
+	nnoremap <Leader>o <Cmd>LspOutline<CR>
+
 	" Visual mode "text objects"
 	vnoremap + <Cmd>LspSelectionExpand<CR>
 	vnoremap - <Cmd>LspSelectionShrink<CR>
@@ -207,12 +225,13 @@ autocmd myvimrc User LspAttached call s:LspAttached()
 function s:LspAttached()
 	setlocal keywordprg=:LspHover
 	setlocal tagfunc=lsp#lsp#TagFunc
-	setlocal formatexpr=lsp#lsp#FormatExpr()
+	" setlocal formatexpr=lsp#lsp#FormatExpr()
 endfunction
 
 " Enable plugins distributed with Vim
 packadd! cfilter
 packadd! matchit
+packadd! editorconfig
 
 " Enhance manpage integration using the builtin man ftplugin
 let g:ft_man_no_sect_fallback = v:true
@@ -236,7 +255,7 @@ let g:gitgutter_preview_win_floating = v:true
 
 " HighlightedYank plugin
 let g:highlightedyank_highlight_in_visual = v:false
-let g:highlightedyank_highlight_duration = 125
+let g:highlightedyank_highlight_duration = 125 "ms
 
 " Extend Vim's built-in output code detection for 24-bit color
 if empty(&t_8f) && empty(&t_8b)

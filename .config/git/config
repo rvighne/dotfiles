@@ -20,6 +20,7 @@
 [add.interactive]
 	useBuiltin = yes
 [merge]
+	directoryRenames = yes
 	conflictStyle = diff3
 	tool = vimdiff
 [diff]
@@ -28,14 +29,18 @@
 	colorMoved = yes
 	colorMovedWS = allow-indentation-change
 	renameLimit = 0
+	renames = copies
 [blame]
 	date = human
 	coloring = highlightRecent
+	markUnblamableLines = yes
+	markIgnoredLines = yes
 [core]
 	pager = less -FR
 [init]
 	defaultBranch = master
 [advice]
+	skippedCherryPicks = no
 	statusHints = no
 	detachedHead = no
 	addIgnoredFile = no
