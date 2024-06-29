@@ -10,14 +10,13 @@ export PATH=~/bin:~/.local/bin:$PATH
 # E.g. used by tmux to determine keybindings
 # E.g. used by bash for C-x C-e
 export VISUAL=$(command -v vim || command -v vi)
+export EDITOR=$VISUAL # compatibility with tools that only read EDITOR
 
 # Interactive-friendly settings for less
 export LESS=-iRx4
 
 # Use Vim to show manpages (with hyperlinks and colors)
-# manpager.vim has a bug where it forgets to reset 'modifiable'
-command -v vim >/dev/null && \
-	export MANPAGER='vim +MANPAGER +setlocal\ nomodifiable --not-a-term -'
+command -v vim >/dev/null && export MANPAGER='vim +MANPAGER --not-a-term -'
 
 # Use ripgrep to speed up FZF and ease searching Git repos
 command -v rg >/dev/null && export FZF_DEFAULT_COMMAND='rg --files'

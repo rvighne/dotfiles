@@ -195,6 +195,7 @@ if has('vim9script')
 	\	aleSupport: v:true,
 	\	outlineOnRight: &splitright,
 	\	outlineWinSize: 40,
+	\	usePopupInCodeAction: v:true,
 	\	useQuickfixForLocations: v:true,
 	\})
 
@@ -220,12 +221,19 @@ if has('vim9script')
 	vnoremap - <Cmd>LspSelectionShrink<CR>
 endif
 
+" Some filetypes set keywordprg in BufRead, so we need to override those
+autocmd myvimrc User LspAttached call s:FileTypeLsp() |
+\	autocmd FileType <buffer> call s:FileTypeLsp()
+
 " Integrate LSP with Vim builtin features
-autocmd myvimrc User LspAttached call s:LspAttached()
-function s:LspAttached()
-	setlocal keywordprg=:LspHover
-	setlocal tagfunc=lsp#lsp#TagFunc
-	" setlocal formatexpr=lsp#lsp#FormatExpr()
+function s:FileTypeLsp()
+	setlocal keywordprg=:LspHover tagfunc=s:LspTagFunc
+endfunction
+
+" tagfunc that returns a definitive empty result instead of v:null on failure,
+" so that Vim doesn't fall back to its internal (synchronous) tag lookup.
+function s:LspTagFunc(pattern, flags, info)
+	return lsp#lsp#TagFunc(a:pattern, a:flags, a:info) ?? []
 endfunction
 
 " Enable plugins distributed with Vim
@@ -283,6 +291,9 @@ try
 	highlight clear SpellRare  | highlight default link SpellRare SpellBad
 catch /^Vim\%((\a\+)\)\=:E185:/
 endtry
+
+" Regardless of whether terminal uses colors, set bg/fg to match colorscheme
+highlight default link Terminal Normal
 
 " Define fallback colors for termdebug plugin that match colorscheme
 " Must come after :colorscheme, because some of them call :highlight clear

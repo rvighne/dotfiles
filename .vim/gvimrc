@@ -1,5 +1,6 @@
 set renderoptions=type:directx
 set guifont=JetBrains\ Mono:h10
-set guioptions=!g
+set guioptions=!cg
 if &background ==? 'dark' | set guioptions+=d | endif
+let $COLORTERM = 'truecolor'
 set scrollfocus
