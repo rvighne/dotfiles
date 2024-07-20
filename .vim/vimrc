@@ -265,17 +265,15 @@ let g:gitgutter_preview_win_floating = v:true
 let g:highlightedyank_highlight_in_visual = v:false
 let g:highlightedyank_highlight_duration = 125 "ms
 
-" Extend Vim's built-in output code detection for 24-bit color
-if empty(&t_8f) && empty(&t_8b)
-	set t_8f=[38;2;%lu;%lu;%lum
-	set t_8b=[48;2;%lu;%lu;%lum
+" Enable xterm-bracketed-paste and xterm-focus-event in tmux
+if &term =~? '^tmux'
+	set t_BE=[?2004h t_BD=[?2004l t_PS=[200~ t_PE=[201~
+	set t_fe=[?1004h t_fd=[?1004l
+	set <FocusGained>=[I <FocusLost>=[O
 endif
 
-" Detect 24-bit color according to https://gist.github.com/XVilka/8346728
-if $COLORTERM =~? 'truecolor\|24bit' | set t_Co=16777216 | endif
-
-" Use 24-bit color whenever available; the colorscheme MUST define GUI colors
-if &t_Co >= 16777216 | set termguicolors | endif
+" Detect 24-bit color according to https://github.com/termstandard/colors
+if $COLORTERM =~? 'truecolor\|24bit' | set termguicolors | endif
 
 " Most plugins expect filetype to be enabled before syntax
 filetype plugin indent on
@@ -290,6 +288,8 @@ try
 	highlight clear SpellLocal | highlight default link SpellLocal SpellBad
 	highlight clear SpellRare  | highlight default link SpellRare SpellBad
 catch /^Vim\%((\a\+)\)\=:E185:/
+	" Builtin colorscheme that isn't hideous and defines GUI colors
+	colorscheme sorbet
 endtry
 
 " Regardless of whether terminal uses colors, set bg/fg to match colorscheme

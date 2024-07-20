@@ -32,9 +32,10 @@ command -v dircolors >/dev/null && eval "$(dircolors -b)"
 command -v lesspipe >/dev/null && eval "$(lesspipe)"
 
 # Configure difftastic (AST-level diff tool)
-export DFT_PARSE_ERROR_LIMIT=32767
-export DFT_DISPLAY=side-by-side-show-both DFT_TAB_WIDTH=4
-export DFT_BACKGROUND=light DFT_SYNTAX_HIGHLIGHT=off
+export DFT_PARSE_ERROR_LIMIT=32767         # always do syntax-based diff
+export DFT_DISPLAY=side-by-side-show-both  # additions always in right column
+export DFT_BACKGROUND=light                # never use bright colors
+export DFT_SYNTAX_HIGHLIGHT=off            # only use colors for diff deltas
 
 # Disable -M (monitoring port) in favor of ServerAliveInterval
 export AUTOSSH_PORT=0

@@ -5,11 +5,10 @@ case $- in
 esac
 
 # Reconfigure tty (if present) to allow any key to resume after C-s
-stty ixany 2>/dev/null
+[ -t 0 ] && stty ixany
 
-# (Re)attach tmux session if connecting remotely and it's installed
-# Using tmux -V (not command -v tmux), in case tmux exists but is broken
-if [ "${SSH_TTY:+x}${TMUX+y}" = x ] && tmux -V
+# (Re)attach tmux if on a non-multiplexed tty and it's properly installed
+if [ -t 0 ] && [ -z "${TMUX+x}" ] && command -v tmux && tmux -V
 	then exec tmux new -As main
 fi
 
@@ -49,18 +48,9 @@ mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 # Show all my own processes (useful over SSH)
 pt() { pstree "$@" -- "$USER"; }
 
-# Search all my own processes
-alias pg='pgrep -au "$USER"'
-
-# cut -f, but treat any run of whitespace as a delimiter
-get() { tr -s '[:blank:]' '\t' | cut -f "$1"; }
-
 # Histogram for input lines treated as discrete values
 # i.e. a version of `sort | uniq -c | sort -n` that doesn't buffer the whole input
 hist() { awk '{++count[$0]} END {for (x in count) print count[x], x }' | sort -n; }
-
-# Package maintenance on Ubuntu
-alias up='sudo apt update && sudo apt full-upgrade --auto-remove --purge -y'
 
 # Start ssh-agent with a known path so we don't need a .env file
 alias start_agent='ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null'
