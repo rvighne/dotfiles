@@ -239,7 +239,6 @@ endfunction
 " Enable plugins distributed with Vim
 packadd! cfilter
 packadd! matchit
-packadd! editorconfig
 
 " Enhance manpage integration using the builtin man ftplugin
 let g:ft_man_no_sect_fallback = v:true
