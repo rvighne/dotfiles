@@ -31,10 +31,6 @@ alias df='df -h'
 alias du='du -h'
 alias free='free -h'
 
-# Show maximum usable info about processes and not threads
-# Force -U (unicode drawing) so paging to less works
-alias pstree='pstree -UapTSu'
-
 # Use same diff and grep implementations in or out of Git repo
 alias diff='git diff --no-index --no-textconv --no-ext-diff'
 alias grep='git grep --no-index --no-recursive'
@@ -45,8 +41,10 @@ command -v bfs >/dev/null && alias find='bfs'
 # Atomic make-and-change-to directory
 mkcd() { mkdir -p -- "$@" && command cd -- "$1"; }
 
-# Show all my own processes (useful over SSH)
-pt() { pstree "$@" -- "$USER"; }
+# Show maximum usable info about processes and not threads
+# Force -U (unicode drawing) so paging to less works
+# Default to current user instead of whole system
+pt() { pstree -UapTSu -- ${1-$USER}; }
 
 # Histogram for input lines treated as discrete values
 # i.e. a version of `sort | uniq -c | sort -n` that doesn't buffer the whole input

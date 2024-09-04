@@ -28,7 +28,7 @@ set backspace=indent,eol
 " Formatting
 set spellcapcheck= spelloptions+=camel
 set autoindent shiftwidth=0 tabstop=4
-set formatoptions+=j
+set formatoptions+=oj
 
 " Command mode
 set wildmenu
@@ -43,10 +43,6 @@ endif
 
 " Treat ^L as page break
 set printoptions+=formfeed:y
-
-" Make the fallback color scheme dark instead of light
-" Neovim lacks background color detection, but it defaults to dark anyway
-if !has('nvim') && empty(v:termrbgresp) | set background=dark | endif
 
 " More traditional mouse behavior (click-drag, menus)
 set mouse=a mousemodel=popup_setpos
