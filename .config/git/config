@@ -8,7 +8,7 @@
 	lineNumber = yes
 	extendedRegexp = yes
 [pull]
-	ff = only
+	rebase = yes
 [fetch]
 	parallel = 0
 [rebase]
@@ -21,7 +21,7 @@
 	useBuiltin = yes
 [merge]
 	directoryRenames = yes
-	conflictStyle = diff3
+	conflictStyle = zdiff3
 	tool = vimdiff
 [diff]
 	algorithm = histogram
@@ -47,3 +47,4 @@
 	addEmptyPathspec = no
 [alias]
 	amend = commit --amend --no-edit
+	pullr = pull -q --rebase=interactive

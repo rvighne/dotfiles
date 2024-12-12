@@ -57,6 +57,9 @@ set updatetime=100 directory=
 " Less surprising keyboard behavior
 set notimeout ttimeout ttimeoutlen=0
 
+" Skip prompts if it's safe to do so
+set autoread autowrite
+
 " Persistent undo tree
 set undodir=~/.vim/undo undofile
 call mkdir(&undodir, 'p', 0700)
