@@ -130,7 +130,7 @@ then
 	alias -- -='cd -'
 
 	HISTTIMEFORMAT='%F %T  '
-	HISTCONTROL=ignoreboth:erasedups
+	HISTCONTROL=ignoredups:erasedups
 
 	# Make HISTFILESIZE use the default ($HISTSIZE, which we set to unlimited)
 	HISTSIZE=
