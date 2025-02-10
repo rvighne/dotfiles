@@ -40,13 +40,5 @@ export DFT_SYNTAX_HIGHLIGHT=off            # only use colors for diff deltas
 # Disable -M (monitoring port) in favor of ServerAliveInterval
 export AUTOSSH_PORT=0
 
-# Connect to ssh-agent at a known path if no agent was forwarded
-if
-	ssh-add -l >/dev/null 2>&1
-	[ $? -eq 2 ]
-then
-	export SSH_AUTH_SOCK=/dev/shm/$USER.ssh-agent.sock
-fi
-
 # Machine-local or private env vars
 [ -O ~/.env ] && . ~/.env

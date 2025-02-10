@@ -50,9 +50,6 @@ pt() { pstree -UapTSu -- ${1-$USER}; }
 # i.e. a version of `sort | uniq -c | sort -n` that doesn't buffer the whole input
 hist() { awk '{++count[$0]} END {for (x in count) print count[x], x }' | sort -n; }
 
-# Start ssh-agent with a known path so we don't need a .env file
-alias start_agent='ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null'
-
 # Git, but use difftastic instead of internal diff whenever possible
 mgit() {
 	local cmd="$1"; shift
