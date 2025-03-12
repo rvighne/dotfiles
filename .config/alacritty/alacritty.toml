@@ -1,3 +1,6 @@
+[env]
+TERM = "alacritty-direct"
+
 [window]
 resize_increments = true
 option_as_alt = "Both"

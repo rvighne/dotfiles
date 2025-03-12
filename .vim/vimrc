@@ -273,6 +273,9 @@ endif
 " Detect 24-bit color according to https://github.com/termstandard/colors
 if $COLORTERM =~? 'truecolor\|24bit' | set termguicolors | endif
 
+" Enable 24-bit color if automatically detected by Vim (e.g. for tmux-direct)
+if &t_Co >= 16777216 | set termguicolors | endif
+
 " Most plugins expect filetype to be enabled before syntax
 filetype plugin indent on
 syntax enable
