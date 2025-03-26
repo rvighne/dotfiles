@@ -24,6 +24,7 @@
 	conflictStyle = zdiff3
 	tool = vimdiff
 [diff]
+	context = 5
 	algorithm = histogram
 	indentHeuristic = yes
 	colorMoved = yes
