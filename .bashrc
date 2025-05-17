@@ -30,6 +30,7 @@ alias ip='ip -color=auto -h'
 alias df='df -h'
 alias du='du -h'
 alias free='free -h'
+alias uptime='uptime -p'
 
 # Use same diff and grep implementations in or out of Git repo
 alias diff='git diff --no-index --no-textconv --no-ext-diff'
@@ -48,7 +49,7 @@ pt() { pstree -UapTSu -- ${1-$USER}; }
 
 # Histogram for input lines treated as discrete values
 # i.e. a version of `sort | uniq -c | sort -n` that doesn't buffer the whole input
-hist() { awk '{++count[$0]} END {for (x in count) print count[x], x }' | sort -n; }
+hist() { awk '{++count[$0]} END {for (x in count) printf "%5u %s\n", count[x], x }' | sort -n; }
 
 # Git, but use difftastic instead of internal diff whenever possible
 mgit() {

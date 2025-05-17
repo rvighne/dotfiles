@@ -13,7 +13,7 @@ export VISUAL=$(command -v vim || command -v vi)
 export EDITOR=$VISUAL # compatibility with tools that only read EDITOR
 
 # Interactive-friendly settings for less
-export LESS=-iRx4
+export LESS='-MiRx4 --use-color'
 
 # Use Vim to show manpages (with hyperlinks and colors)
 command -v vim >/dev/null && export MANPAGER='vim +MANPAGER --not-a-term -'
