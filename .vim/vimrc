@@ -44,6 +44,9 @@ endif
 " Treat ^L as page break
 set printoptions+=formfeed:y
 
+" Undercurl is poorly supported even when Vim detects it, disable for now
+set t_Cs=
+
 " More traditional mouse behavior (click-drag, menus)
 set mouse=a mousemodel=popup_setpos
 if !has('nvim') | set ttymouse=sgr | endif
@@ -283,11 +286,6 @@ syntax enable
 try
 	let g:one_allow_italics = v:true
 	colorscheme one
-	" Without undercurl, color must be set manually (this is orange from One Dark)
-	highlight clear SpellBad   | call one#highlight('SpellBad', 'd19a66', '', 'underline')
-	highlight clear SpellCap   | highlight default link SpellCap SpellBad
-	highlight clear SpellLocal | highlight default link SpellLocal SpellBad
-	highlight clear SpellRare  | highlight default link SpellRare SpellBad
 catch /^Vim\%((\a\+)\)\=:E185:/
 	" Builtin colorscheme that isn't hideous and defines GUI colors
 	colorscheme sorbet
